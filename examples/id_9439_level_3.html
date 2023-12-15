@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<head>
+<style>
+@page {
+    size: A4;
+    margin: 8px;
+}
+body {font: 1em Arial,sans-serif;margin: 0 8px;background:#f0f3f8}
+h1 {font-size:1.2em;line-height:120%;font-weight:400;padding:0.2em;border:1px solid black}
+h2 {font-size:1.1em;font-weight:400;margin-top:0.2em}
+.report_title {margin:0.5em 0 0 1.5em;padding:0}
+.report_title p {background:#c0c0c0}
+div.section {display:flex;justify-content:space-between;margin-bottom:1em;column-gap:10px}
+div.block {border:1px solid #a6a6a6;padding:0.5em;margin-bottom:1em}
+th {background:#fff;text-align:center}
+td {background:#fff;min-width:3em;text-align:center}
+table.amr {border-spacing:0;border-collapse:collapse}
+table.amr td {background:transparent;border:1px solid #888;}
+table.isolates tr.this_isolate td {background:#ddd}
+</style> 
+<body>
+<div class="section">
+<h1 style="max-width:60%">KLEBSIELLA SPECIES GENOME SEQUENCE REPORT</h1>
+<div class="report_title"><p>Level 3: Genomic epidemiologist use</p></div>
+</div>
+
+
+<div class="section">
+<div style="border:1px solid navy;padding:0.5em">
+<strong>Database identifier: </strong>9439<br />
+<strong>Isolate identifier: </strong>CriePir26<br />
+
+<strong>Date entered: </strong>2019-08-06<br />
+<strong>Location: </strong>
+
+Moscow,
+
+Russia<br />
+
+<strong>Host: </strong>Human<br />
+
+
+</dl>
+</div>
+
+<div style="border:1px solid orange;padding:0.5em">
+
+<strong>Genome report date: </strong>2023-12-15<br />
+<strong>Genome quality: </strong>
+
+ 
+  
+    Marginal
+  
+ 
+
+</div>
+</div>
+
+<div class="block">
+<strong>Organism: </strong><em>Klebsiella pneumoniae</em><br />
+</div>
+
+<div class="block">
+<p><strong>Bacterial typing: </strong> subspecies classifications to assess isolate similarity</p>
+
+<div class="section">
+<div>
+MLST (Multilocus sequence typing)<br />
+Sequence type (ST):
+ 377
+<br />
+Clonal group: 
+  CG377
+<br />
+<p>Life Identification Number: 
+
+ 0_0_152_1_0_0_0_2_0_0
+
+</p>
+</div>
+<div>
+
+Profile:
+<table><tr>
+<th>gapA</th><th>infB</th><th>mdh</th><th>pgi</th><th>phoE</th><th>rpoB</th><th>tonB</th>
+</tr><tr>
+<td>10</td><td>20</td><td>2</td><td>1</td><td>9</td><td>11</td><td>12</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="block">
+<p><strong>Antibiotic susceptibility: </strong>Resistance mechanisms identified are used to predict antimicrobial susceptibility.</p>
+
+<table class="amr">
+<tr><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td></tr>
+<tr>
+<td>Aminoglycocides</td><td>aac(3)-IIa;aac(6')-Ib-cr;aadA;aph(3')-VIa (homolog);strA</td>
+
+
+<td>Penicillins</td><td>OXA-1,SHV-110</td></tr>
+
+
+<tr><td>Carbapenems</td><td>OXA-48,OmpK35-90%;OmpK36GD</td>
+
+<td>Penicillins + β-lactamase inhibitors</td><td></td></tr>
+<tr><td>Cephalosporins (3rd gen)</td><td>CTX-M-15</td>
+<td>Phenicols</td><td>CatB4 (fragment);catA1 (homolog)</td></tr>
+<tr><td>Cephalosporins (3rd gen.) + β-lactamase inhibitors</td><td></td>
+<td>Sulfonamides</td><td>sul1 (homolog, fragment);sul2</td></tr>
+
+
+<tr><td>Colistin</td><td></td>
+
+<td>Tetracycline</td><td></td></tr>
+
+
+<tr><td>Fluoroquinolones</td><td>GyrA-83Y;GyrA-87A;ParC-80I</td>
+
+<td>Tigecycline</td><td></td></tr>
+<tr><td>Fosfomycin</td><td></td>
+<td>Trimethoprim</td><td>dfrA15</td></tr>
+</table>
+
+</div>
+
+<div class="block">
+<p><strong>Capsular typing: </strong>Polysaccharide K and lipopolysaccharide O types as predicted by KL and O genotype</p>
+
+<p>
+<span style="margin-right:100px"><em>K type: unknown (KL102)</em></span>
+<span><em>O type: O2afg</em></span></p>
+
+</div>
+
+<div class="block">
+<p><strong>Virulence factors: </strong>Factors that may lead to increased ability to cause invasive disease</p>
+
+<p>Virulence score: 0</p>
+
+Hypermucoidy: None<br />
+<p>
+<span style="margin-right:100px">Yersiniabactin ST: None</span>
+<span style="margin-right:100px">Colibactin ST: None</span>
+<br />
+<span style="margin-right:100px">Aerobactin ST: None</span>
+<span style="margin-right:100px">Salmochelin ST: None</span>
+</p>
+
+</div>
+
+<div class="block">
+<p><strong>Related isolates</strong></p>
+<p>There are 4 related isolates identified with the same LINcode prefix <a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=query&designation_field1=lin_18&designation_operator1=starts%20with&designation_value1=0_0_152_1_0&submit=1">0_0_152_1_0</a> (representing the 10 core locus threshold) in the database.</p>
+
+<table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th><th>year</th><th>LINcode</th></tr>
+  
+  <tr class="this_isolate"><td><a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id=9439">9439</a></td><td>CriePir26</td><td>Russia</td><td>2017</td><td>0_0_152_1_0_0_0_2_0_0</td></tr>
+  
+  <tr ><td><a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id=9440">9440</a></td><td>CriePir28</td><td>Russia</td><td>2017</td><td>0_0_152_1_0_0_0_2_0_0</td></tr>
+  
+  <tr ><td><a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id=9441">9441</a></td><td>CriePir152</td><td>Russia</td><td>2017</td><td>0_0_152_1_0_0_0_2_0_0</td></tr>
+  
+  <tr ><td><a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id=21806">21806</a></td><td>CRE113</td><td>USA</td><td>2017</td><td>0_0_152_1_0_0_9_0_0_0</td></tr>
+  
+  <tr ><td><a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id=13189">13189</a></td><td>SPARK_144_C1</td><td>Italy</td><td>2017</td><td>0_0_152_1_0_0_9_1_0_0</td></tr>
+  
+</table>
+
+
+</div>
+
+</body>
+</html>
+
