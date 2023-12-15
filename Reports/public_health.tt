@@ -79,7 +79,7 @@ No assembly
   [% ST = [] %][% FOREACH value IN schemes.1 %][% IF value.st %][% ST.push(value.st) %][% END %]
 [% END %]
   <strong>Summary: </strong>
-  [% IF !Kleb %]<strong><em>Kleborate has not run.</em></strong>[% ELSE %]This isolate is <em>[% Kleb.species %] with </em>[% IF !Kleb.K_type && !Kleb.O_type %]undefined capsular type[% ELSE %]capsular type [% list.format_list(', ','',' and ')%][% END %]. The genotype is MLST ST-[% ST.format_list(', ','') %][% IF lincodes.lincode %], Life Identification Number (LIN) code [% lincodes.lincode %] and there [% IF lincodes.clusters.5.simiar == 1 %]is[% ELSE %]are[% END %] [% lincodes.clusters.5.similar %] related isolate[% IF lincodes.clusters.5.simiar != 1 %]s[% END %] identified with the same LINcode prefix [% lincodes.clusters.5.prefix %] (representing the 10 core locus threshold)[% END %].
+  [% IF !Kleb %]<strong><em>Kleborate has not run.</em></strong>[% ELSE %]This isolate is <em>[% Kleb.species %]</em> with [% IF !Kleb.K_type && !Kleb.O_type %]undefined capsular type[% ELSE %]capsular type [% list.format_list(', ','',' and ')%][% END %]. The genotype is MLST ST-[% ST.format_list(', ','') %][% IF lincodes.lincode %], Life Identification Number (LIN) code [% lincodes.lincode %] and there [% IF lincodes.clusters.5.simiar == 1 %]is[% ELSE %]are[% END %] [% lincodes.clusters.5.similar %] related isolate[% IF lincodes.clusters.5.simiar != 1 %]s[% END %] identified with the same LINcode prefix [% lincodes.clusters.5.prefix %] (representing the 10 core locus threshold)[% END %].
   [% END %]
 </div>
 
