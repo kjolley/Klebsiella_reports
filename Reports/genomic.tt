@@ -119,7 +119,7 @@ Profile:
 <table class="amr">
 <tr><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td></tr>
 <tr>
-<td>Aminoglycocides</td><td>[% Kleb.AGly_acquired %]</td>
+<td>Aminoglycosides</td><td>[% Kleb.AGly_acquired %]</td>
 
 [% list = [Kleb.Bla_acquired,Kleb.Bla_chr,Kleb.Bla_inhR_acquired] %]
 <td>Penicillins</td><td>[% list.format_list(',') %]</td></tr>
@@ -179,7 +179,7 @@ Hypermucoidy: [% list.format_list(',','None') %]<br />
 
 <div class="block">
 <p><strong>Related isolates</strong></p>
-<p>There [% IF lincodes.clusters.5.simiar == 1 %]is[% ELSE %]are[% END %] [% lincodes.clusters.5.similar %] related isolate[% IF lincodes.clusters.5.simiar != 1 %]s[% END %] identified with the same LINcode prefix <a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=query&designation_field1=lin_18&designation_operator1=starts%20with&designation_value1=[% lincodes.clusters.5.prefix %]&submit=1">[% lincodes.clusters.5.prefix %]</a> (representing the 10 core locus threshold) in the database.</p>
+<p>There [% IF lincodes.clusters.5.simiar == 1 %]is[% ELSE %]are[% END %] [% lincodes.clusters.5.similar %] related isolate[% IF lincodes.clusters.5.simiar != 1 %]s[% END %] identified with the same LINcode prefix <a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=query&designation_field1=lin_18&designation_operator1=starts%20with&designation_value1=[% lincodes.clusters.5.prefix %]&submit=1">[% lincodes.clusters.5.prefix %]</a> (representing the 10 core genome MLST distance threshold) in the database.</p>
 [% IF lincodes.clusters.5.similar %]
 <table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th><th>year</th><th>LINcode</th></tr>
   [% FOREACH isolate IN lincodes.clusters.5.isolates %]

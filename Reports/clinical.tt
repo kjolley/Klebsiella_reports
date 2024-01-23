@@ -60,7 +60,7 @@ table.amr td {background:transparent;border:1px solid #888;}
 </div>
 </div>
 
-[% list = [] %][% IF Kleb.AGly_acquired %][% list.push('aminoglycocides') %][% END %]
+[% list = [] %][% IF Kleb.AGly_acquired %][% list.push('aminoglycosides') %][% END %]
 [% IF Kleb.Bla_Carb_acquired || Kleb.Omp_mutations %][% list.push('carbapenems') %][% END %]
 [% IF Kleb.Bla_ESBL_acquired %][% list.push('3rd generation cephalosporins') %][% END %]
 [% IF Kleb.Col_acquired || Kleb.Col_mutations %][% list.push('colistin') %][% END %]
@@ -105,7 +105,7 @@ Profile:
 <table class="amr">
 <tr><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td></tr>
 <tr>
-<td>Aminoglycocides</td><td>[% Kleb.AGly_acquired %]</td>
+<td>Aminoglycosides</td><td>[% Kleb.AGly_acquired %]</td>
 
 [% list = [Kleb.Bla_acquired,Kleb.Bla_chr,Kleb.Bla_inhR_acquired] %]
 <td>Penicillins</td><td>[% list.format_list(',') %]</td></tr>
