@@ -65,7 +65,7 @@
 
   
   <div class="summary-box organism">
-    <dl><dt>Organism</dt><dd>[% species_format.$species || species %]</dd>
+    <dl><dt>Organism</dt><dd>[% species_format.$species || species %]</dd></dl>
   </div>
 
 <div class="summary-box typing">
@@ -95,6 +95,7 @@ Sequence type (ST):
 [% END %]
 </tr>
 </table>
+</div>
 </div>
 </div>
 </section>
