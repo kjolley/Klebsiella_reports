@@ -1,146 +1,103 @@
 <!DOCTYPE html>
 <head>
 <style>
-@page {
-    size: A4;
-    margin: 8px;
-}
-body {font: 1em Arial,sans-serif;margin: 0 8px;background:#ede9de}
-h1 {font-size:1.2em;line-height:120%;font-weight:400;padding:0.2em;border:1px solid black}
-h2 {font-size:1.1em;font-weight:400;margin-top:0.2em}
-.report_title {margin:0.5em 0 0 1.5em;padding:0}
-.report_title p {background:#c0c0c0}
-div.section {display:flex;justify-content:space-between;margin-bottom:1em;column-gap:10px}
-div.block {border:1px solid #a6a6a6;padding:0.5em;margin-bottom:1em}
-th {background:#fff;text-align:center}
-td {background:#fff;min-width:3em;text-align:center}
-table.amr {border-spacing:0;border-collapse:collapse}
-
-table.amr td {background:transparent;border:1px solid #888;}
+[% css %]
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
-<html>
+
 <body>
-<div class="section">
-<h1 style="max-width:60%">KLEBSIELLA SPECIES GENOME SEQUENCE REPORT</h1>
-<div class="report_title"><p>Level 1: Clinical/microbiology use</p></div>
-</div>
+  [% species = fields.taxonomic_designation %]
+  [% species_format = {
+    'K. pneumoniae' => '<em>Klebsiella pneumoniae</em>',
+ 	'K. quasipneumoniae subsp. quasipneumoniae' => 
+ 	   '<em>Klebsiella quasipneumoniae</em> subsp. <em>quasipneumoniae</em>',
+	'K. variicola subsp. variicola' => '<em>Klebsiella variicola</em> subsp. <em>variicola</em>',
+	'K. quasipneumoniae subsp. similipneumoniae' => 
+	   '<em>Klebsiella quasipneumoniae</em> subsp. <em>similipneumoniae</em>',
+	'K. variicola subsp. tropica' => '<em>Klebsiella variicola</em> subsp. <em>tropica</em>',
+	'K. quasivariicola' => '<em>Klebsiella quasivariicola</em>',
+	'K. africana' => '<em>Klebsiella africana</em>'
+  } %]
 
-<div class="section">
-  <div style="border:1px solid navy;padding:0.5em">
-[% FOREACH result IN analysis.Kleborate.results.fields %][% FOREACH field IN result.keys %][% Kleb.$field = result.$field.replace('\*\?',' (homolog, fragment)').replace('\?',' (fragment)').replace('\*',' (homolog)').replace('\.v\d+','').replace('\^','') %][% END %][% END %]
-    
-<strong>Database identifier: </strong>[% fields.id %]<br />
-<strong>Isolate identifier: </strong>[% fields.isolate %]<br />
-[% IF aliases %]
-<strong>Alternative identifier(s): </strong>
-[% i = 0 %]
-[% FOREACH alias IN aliases %][% IF i == 1 %]; [% END %][% alias %][% i = 1 %][% END %]
-<br />
-[% END %]
-<strong>Date entered: </strong>[% fields.date_entered %]<br />
-<strong>Location: </strong>
-[% IF fields.city %]
-[% fields.city %],
-[% END %]
-[% fields.country %]<br />
-[% IF fields.source != undef %]
-<strong>Source of isolate: </strong>[% fields.source %]<br />
-[% END %]
+
+<section class="report-header clinical">
+  <h1>CLINICAL GENOME REPORT</h1>
+  <div class="info-grid">
+    <div>
+      <dl>
+      	<dt>Genome identifier</dt><dd>id-[% fields.id %]</dd>
+      	<dt>Isolate/laboratory identifier</dt><dd>[% fields.isolate %]</dd>
+      	<dt>Year of isolation</dt><dd>[% fields.isolation_year %]</dd>
+      	<dt>Location</dt><dd>[% fields.city %], [% fields.country %]</dd>
+      </dl>
+    </div>
+    <div>
+      <dl>
+      <dt>Source type</dt><dd>[% fields.host %]</dd>     
+      <dt>Host tissue sampled</dt><dd>[% fields.source_details %]</dd>
+      [% IF fields.accession_number.length > 0 %]
+      	<dt>Accession number</dt><dd>[% fields.accession_number %]</dd>
+      [% END %]
+      
+      <dt>Genome report date</dt><dd>[% date %]</dd>
+      <dt>Genome quality</dt><dd>    
+	      [% IF assembly %]
+	      	[% IF assembly_checks.last_run %] 
+	      		[% IF assembly_checks.fail %]Poor
+	      		[% ELSIF assembly_checks.warn %]Marginal
+	      		[% ELSE %]Acceptable[% END %][% ELSE %]Checks not performed.
+	      	[% END %]
+	      [% ELSE %]No assembly[% END %]
+	    </dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2 class="section-title">Section 1: Clinical microbiology</h2>
+
+  <div class="summary-box clinical">
+    <dl>
+    <dt>Summary</dt>
+    <dd>SUMMARY goes here.</dd>
+    </dl>
+  </div>
+
+  
+  <div class="summary-box organism">
+    <dl><dt>Organism</dt><dd>[% species_format.$species || species %]</dd>
+  </div>
+
+<div class="summary-box typing">
+<dl><dt>Bacterial typing</dt><dd class="description">
+subspecies characterisation and classification to assess isolate similarity 
+<a href="https://pubmlst.org/multilocus-sequence-typing" target="_blank">
+<span style="white-space: nowrap">https://pubmlst.org/multilocus-sequence-typing</span></a></dd>
 </dl>
-</div>
-
-<div style="border:1px solid orange;padding:0.5em">
-[% IF fields.biosample_accession != undef %]
-<strong>Biosample accession: </strong>[% fields.biosample_accession.0 %]<br />
-[% END %]
-<strong>Genome report date: </strong>[% date %]<br />
-<strong>Genome quality: </strong>
-[% IF assembly %][% IF assembly_checks.last_run %] [% IF assembly_checks.fail %]Poor[% ELSIF assembly_checks.warn %]Marginal[% ELSE %]Acceptable[% END %][% ELSE %]Checks not performed.[% END %][% ELSE %]No assembly[% END %]
-</div>
-</div>
-
-[% list = [] %][% IF Kleb.AGly_acquired %][% list.push('aminoglycosides') %][% END %]
-[% IF Kleb.Bla_Carb_acquired || Kleb.Omp_mutations %][% list.push('carbapenems') %][% END %]
-[% IF Kleb.Bla_ESBL_acquired %][% list.push('3rd generation cephalosporins') %][% END %]
-[% IF Kleb.Col_acquired || Kleb.Col_mutations %][% list.push('colistin') %][% END %]
-[% IF Kleb.Flq_acquired || Kleb.Flq_mutations %][% list.push('fluoroquinolones') %][% END %]
-[% IF Kleb.Fcyn_acquired %][% list.push('fosfomycin') %][% END %]
-[% IF Kleb.Phe_acquired %][% list.push('phenicols') %][% END %]
-[% IF Kleb.Sul_acquired %][% list.push('sulfonamides') %][% END %]
-[% IF Kleb.Tet_acquired %][% list.push('tetracycline') %][% END %]
-[% IF Kleb.Tgc_acquired %][% list.push('tigecycline') %][% END %]
-[% IF Kleb.Tmt_acquired %][% list.push('trimethoprim') %][% END %]
-
-<div class="block" style="border:2px solid #ffcf3c;background:#ffe69c">
-<strong>Summary: </strong>
-[% IF !Kleb %]<em>Kleborate has not run.</em>[% ELSE %]This isolate is <em>[% Kleb.species %]</em>, [% IF list.size %]demonstrating genotypic resistance determinants to [% list.format_list(', ','',' and ') %][% ELSE %]demonstrating no genotypic resistance determinants to any drug class[% END %][% IF Kleb.species == 'Klebsiella pneumoniae' %], with intrinsic ampicillin resistance[% END %].
-[% END %]
-</div>
-<div class="block">
-<strong>Organism: </strong><em>[% IF !Kleb %]Kleborate has not run.[% ELSE %][% Kleb.species %][% END %]</em><br />
-</div>
-<div class="block">
-<p><strong>Bacterial typing: </strong> subspecies classifications to assess isolate similarity</p>
-<div class="section">
-<div>
+<div class="info-grid">
+<div class="st">
 MLST (Multilocus sequence typing)<br />
-Sequence type (ST): [% IF !schemes.1 %] Not yet defined.[% END %][% FOREACH value IN schemes.1 %][% IF !loop.first %], [% END %][% IF value.st %][% value.st %][% ELSE %]Not defined.[% END %][% END %]
+Sequence type (ST): 
+[% IF !schemes.1 %] Not yet defined.[% END %]
+[% FOREACH value IN schemes.1 %]
+  [% IF !loop.first %], [% END %]
+  [% IF value.st %][% value.st %]
+  [% ELSE %]Not defined.[% END %]
+[% END %]
 </div>
-<div>
+<div class="profile">
 [% loci = ['gapA','infB','mdh','pgi','phoE','rpoB','tonB' ] %]
-Profile:
-<table><tr>[% FOREACH locus IN loci %]<th>[% locus %]</th>[% END %]</tr><tr>
-[% FOREACH locus IN loci %]<td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>[% END %]
+<p class="profile_heading">Profile:</p>
+<table><tr>[% FOREACH locus IN loci %]<th>[% locus %]</th>[% END %]</tr>
+<tr>
+[% FOREACH locus IN loci %]
+  <td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>
+[% END %]
 </tr>
 </table>
 </div>
 </div>
-</div>
-<div class="block">
-<p><strong>Antibiotic susceptibility: </strong>Resistance mechanisms identified are used to predict antimicrobial susceptibility.</p>
-[% IF !Kleb %]
-<strong><em>Kleborate has not run.</em></strong>
-[% ELSE %]
-<table class="amr">
-<tr><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td><td><strong>Drug class</strong></td><td><strong>Resistance determinants</strong></td></tr>
-<tr>
-<td>Aminoglycosides</td><td>[% Kleb.AGly_acquired %]</td>
-
-[% list = [Kleb.Bla_acquired,Kleb.Bla_chr,Kleb.Bla_inhR_acquired] %]
-<td>Penicillins</td><td>[% list.format_list(',') %]</td></tr>
-
-[% list = [Kleb.Bla_Carb_acquired,Kleb.Omp_mutations] %]
-<tr><td>Carbapenems</td><td>[% list.format_list(',') %]</td>
-
-<td>Penicillins + β-lactamase inhibitors</td><td>[% Kleb.Bla_inhR_acquired %]</td></tr>
-<tr><td>Cephalosporins (3rd gen)</td><td>[% Kleb.Bla_ESBL_acquired %]</td>
-<td>Phenicols</td><td>[% Kleb.Phe_acquired %]</td></tr>
-<tr><td>Cephalosporins (3rd gen.) + β-lactamase inhibitors</td><td>[% Kleb.Bla_ESBL_inhR_acquired %]</td>
-<td>Sulfonamides</td><td>[% Kleb.Sul_acquired %]</td></tr>
-
-[% list = [Kleb.Col_acquired,Kleb.Col_mutations] %]
-<tr><td>Colistin</td><td>[% list.format_list(',') %]</td>
-
-<td>Tetracycline</td><td>[% Kleb.Tet_acquired %]</td></tr>
-
-[% list = [Kleb.Flq_acquired,Kleb.Flq_mutations] %]
-<tr><td>Fluoroquinolones</td><td>[% list.format_list(',') %]</td>
-
-<td>Tigecycline</td><td>[% Kleb.Tgc_acquired %]</td></tr>
-<tr><td>Fosfomycin</td><td>[% Kleb.Fcyn_acquired %]</td>
-<td>Trimethoprim</td><td>[% Kleb.Tmt_acquired %]</td></tr>
-</table>
-[% END %]
-</div>
-
-<div class="block">
-<p><strong>Capsular typing: </strong>Polysaccharide K and lipopolysaccharide O types as predicted by KL and O genotype</p>
-<p>
-<span style="margin-right:100px"><em>K type: [% Kleb.K_type %]</em></span>
-<span><em>O type: [% Kleb.O_type %]</em></span></p>
-
-</div>
+</section>
 
 </body>
 </html>

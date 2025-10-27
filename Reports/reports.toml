@@ -1,16 +1,15 @@
 reports = [
   {
-		name		= 'Level 1',
+		name		= 'Clinical Genome Report',
 		template_file 	= 'clinical.tt',
-		comments        = 'Clinical / microbiology use',
+		css = 'style.css',
 		requires        = {
 				schemes = [1]		 
 		}
   },
-	{
-		name		= 'Level 2',
-		template_file 	= 'public_health.tt',
-		comments        = 'Public health use',
+  {
+		name		= 'Technical Genome Report',
+		template_file 	= 'technical.tt',
 		requires        = {
 				schemes = [1],
 				lincodes = {
@@ -19,26 +18,7 @@ reports = [
 					 	 thresholds = [5], #One-based index
 						 fields = ['isolate','country','isolation_year']
 					 }
-					 
 				}
 		}
-
-	},
-		{
-		name		= 'Level 3',
-		template_file 	= 'genomic.tt',
-		comments        = 'Genomic epidemiologist use',
-		requires        = {
-				schemes = [1],
-				lincodes = {
-					 scheme = 18,
-					 clusters = {
-					 	 thresholds = [5], #One-based index
-						 fields = ['isolate','country','isolation_year']
-					 }
-					 
-				}
-		}
-
 	},
 ]
