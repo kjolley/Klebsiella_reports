@@ -24,24 +24,23 @@
 <section class="report-header clinical">
   <h1>CLINICAL GENOME REPORT</h1>
   <div class="info-grid">
-    <div>
-      <dl>
-      	<dt>Genome identifier</dt><dd>id-[% fields.id %]</dd>
-      	<dt>Isolate/laboratory identifier</dt><dd>[% fields.isolate %]</dd>
-      	<dt>Year of isolation</dt><dd>[% fields.isolation_year %]</dd>
-      	<dt>Location</dt><dd>[% fields.city %], [% fields.country %]</dd>
-      </dl>
+    <div class="list">
+      
+      	<item><label>Genome identifier</label><value>id-[% fields.id %]</value></item>
+      	<item><label>Isolate/laboratory identifier</label><value>[% fields.isolate %]</value></item>
+      	<item><label>Year of isolation</label><value>[% fields.isolation_year %]</value></item>
+      	<item><label>Location</label><value>[% fields.city %], [% fields.country %]</value></item>
+      
     </div>
-    <div>
-      <dl>
-      <dt>Source type</dt><dd>[% fields.host %]</dd>     
-      <dt>Host tissue sampled</dt><dd>[% fields.source_details %]</dd>
+    <div class="list">
+      <item><label>Source type</label><value>[% fields.host %]</value></item>     
+      <item><label>Host tissue sampled</label><value>[% fields.source_details %]</value></item>
       [% IF fields.accession_number.length > 0 %]
-      	<dt>Accession number</dt><dd>[% fields.accession_number %]</dd>
+      	<item><label>Accession number</label><value>[% fields.accession_number %]</value></item>
       [% END %]
       
-      <dt>Genome report date</dt><dd>[% date %]</dd>
-      <dt>Genome quality</dt><dd>    
+      <item><label>Genome report date</label><value>[% date %]</value></item>
+      <item><label>Genome quality</label><value>    
 	      [% IF assembly %]
 	      	[% IF assembly_checks.last_run %] 
 	      		[% IF assembly_checks.fail %]Poor
@@ -49,31 +48,31 @@
 	      		[% ELSE %]Acceptable[% END %][% ELSE %]Checks not performed.
 	      	[% END %]
 	      [% ELSE %]No assembly[% END %]
-	    </dd>
-      </dl>
+	    </value></item>
     </div>
   </div>
 
   <h2 class="section-title">Section 1: Clinical microbiology</h2>
 
-  <div class="summary-box clinical">
-    <dl>
-    <dt>Summary</dt>
-    <dd>SUMMARY goes here.</dd>
-    </dl>
+  <div class="summary-box clinical list">
+    
+    <item><label>Summary</label>
+    <value>SUMMARY goes here.</value></item>
+    
   </div>
 
   
-  <div class="summary-box organism">
-    <dl><dt>Organism</dt><dd>[% species_format.$species || species %]</dd></dl>
+  <div class="summary-box organism list">
+    <item><label>Organism</label><value>[% species_format.$species || species %]</value></item>
   </div>
 
 <div class="summary-box typing">
-<dl><dt>Bacterial typing</dt><dd class="description">
+<div class="list">
+<item><label>Bacterial typing</label><value class="description">
 subspecies characterisation and classification to assess isolate similarity 
 <a href="https://pubmlst.org/multilocus-sequence-typing" target="_blank">
-<span style="white-space: nowrap">https://pubmlst.org/multilocus-sequence-typing</span></a></dd>
-</dl>
+<span style="white-space: nowrap">https://pubmlst.org/multilocus-sequence-typing</span></a></value>
+</item></div>
 <div class="info-grid">
 <div class="st">
 MLST (Multilocus sequence typing)<br />
@@ -87,8 +86,9 @@ Sequence type (ST):
 </div>
 <div class="profile">
 [% loci = ['gapA','infB','mdh','pgi','phoE','rpoB','tonB' ] %]
-<p class="profile_heading">Profile:</p>
-<table><tr>[% FOREACH locus IN loci %]<th>[% locus %]</th>[% END %]</tr>
+
+<table><tr><td rowspan="2" class="profile_heading">Profile:</td>
+[% FOREACH locus IN loci %]<th>[% locus %]</th>[% END %]</tr>
 <tr>
 [% FOREACH locus IN loci %]
   <td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>
