@@ -7,19 +7,7 @@
 </head>
 
 <body>
-  [% species = fields.taxonomic_designation %]
-  [% species_format = {
-    'K. pneumoniae' => '<em>Klebsiella pneumoniae</em>',
- 	'K. quasipneumoniae subsp. quasipneumoniae' => 
- 	   '<em>Klebsiella quasipneumoniae</em> subsp. <em>quasipneumoniae</em>',
-	'K. variicola subsp. variicola' => '<em>Klebsiella variicola</em> subsp. <em>variicola</em>',
-	'K. quasipneumoniae subsp. similipneumoniae' => 
-	   '<em>Klebsiella quasipneumoniae</em> subsp. <em>similipneumoniae</em>',
-	'K. variicola subsp. tropica' => '<em>Klebsiella variicola</em> subsp. <em>tropica</em>',
-	'K. quasivariicola' => '<em>Klebsiella quasivariicola</em>',
-	'K. africana' => '<em>Klebsiella africana</em>'
-  } %]
-
+  [% PROCESS processing.tt %]
 
 <section class="report-header clinical">
   <h1>CLINICAL GENOME REPORT</h1>
@@ -66,7 +54,7 @@
     <item><label>Organism</label><value>[% species_format.$species || species %]</value></item>
   </div>
 
-<div class="summary-box typing">
+<div class="content typing">
 <div class="list">
 <item><label>Bacterial typing</label><value class="description">
 subspecies characterisation and classification to assess isolate similarity 
@@ -77,27 +65,52 @@ subspecies characterisation and classification to assess isolate similarity
 <div class="st">
 MLST (Multilocus sequence typing)<br />
 Sequence type (ST): 
-[% IF !schemes.1 %] Not yet defined.[% END %]
-[% FOREACH value IN schemes.1 %]
-  [% IF !loop.first %], [% END %]
-  [% IF value.st %][% value.st %]
-  [% ELSE %]Not defined.[% END %]
+[% IF st %][% st %][% ELSE %]Not yet defined.[% END %]
+</div>
+[% IF st %]
+	<div class="profile">
+	<table><tr><td rowspan="2" class="profile_heading">Profile:</td>
+	[% FOREACH locus IN mlst_loci %]<th>[% locus %]</th>[% END %]</tr>
+	<tr>
+	[% FOREACH locus IN mlst_loci %]
+	  <td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>
+	[% END %]
+	</tr>
+	</table>
+	</div>
 [% END %]
 </div>
-<div class="profile">
-[% loci = ['gapA','infB','mdh','pgi','phoE','rpoB','tonB' ] %]
+</div>
+<div class="content amr">
+<div class="list">
+<item><label>Antibiotic resistance determinants</label>
+<value class="description">Genetically determined resistance mechanisms have been identified. 
+Genetic variants (homologs) are highlighted *. "None found" means no resistance mechanisms 
+have been identified in the antimicrobial resistance databases that exist at the time of 
+reporting, correlate with phenotype. It is best practice to review these with the phenotypic 
+antibiotic susceptibility profile. 
+<a href="https://github.com/klebgenomics/Kleborate" target="_blank">
+<span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
+</div>
+<table class="amr">
+<tr><th>Drug class</th><th>Acquired genotypes</th></tr>
+<tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
+<tr><td>  + β lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
+<tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
+<tr><td>  + β-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
+<tr><td>Carbapenems</td></td><td>[% carbapenems_output %]</td></tr>
+<tr><td>  + β-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
+<tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
+<tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
+<tr><td>Fosfomycin</td><td>[% fosfomycin_output %]</td></tr>
+<tr><td>Phenicols</td><td>[% phenicols_output %]</td></tr>
+<tr><td>Polymixins</td><td>CHECK VALUES NEEDED</td></tr>
+<tr><td>Tigecycline</td><td>[% tigecycline_output %]</td></tr>
+<tr><td>Trimethoprim</td><td>[% trimethoprim_output %]</td></tr>
+<tr><td>  + Sulfonamides</td><td>[% sulfonamides_output %]</td></tr>
 
-<table><tr><td rowspan="2" class="profile_heading">Profile:</td>
-[% FOREACH locus IN loci %]<th>[% locus %]</th>[% END %]</tr>
-<tr>
-[% FOREACH locus IN loci %]
-  <td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>
-[% END %]
-</tr>
 </table>
-</div>
-</div>
-</div>
+
 </section>
 
 </body>

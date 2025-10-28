@@ -42,7 +42,7 @@
   margin-bottom: 1rem
 }
 
-.summary-box{  
+div.summary-box, div.content{  
   margin:0 0 0.2rem 0;
   padding:0;
   border: 1px solid #e7e6e6;
@@ -58,7 +58,8 @@ div.typing {
 }
 div.st {
 	margin-top: 1rem;
-	border:0
+	border:0;
+	line-height: 1.3;
 }
 div.profile {
 	margin-top: 1rem;
@@ -99,6 +100,20 @@ div.list > item > label:after {
 
 value.description {
 	font-size: 0.9rem
+}
+
+table.amr {
+	width: 98%;
+	margin:auto;
+	text-align:left;
+	border: 1px dashed #afafaf;
+	border-collapse: collapse;
+}
+
+table.amr th,table.amr td {
+	font-size: 0.8rem;
+	border: 1px dashed #afafaf;
+	padding: 5px;
 }
 
 @media (max-width: 600px){
