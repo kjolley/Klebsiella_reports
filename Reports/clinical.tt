@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style>
 [% css %]
 </style>
@@ -12,15 +14,13 @@
 <section class="report-header clinical">
   <h1>CLINICAL GENOME REPORT</h1>
   <div class="info-grid">
-    <div class="list">
-      
+    <div class="list bordered">     
       	<item><label>Genome identifier</label><value>id-[% fields.id %]</value></item>
       	<item><label>Isolate/laboratory identifier</label><value>[% fields.isolate %]</value></item>
       	<item><label>Year of isolation</label><value>[% fields.isolation_year %]</value></item>
-      	<item><label>Location</label><value>[% fields.city %], [% fields.country %]</value></item>
-      
+      	<item><label>Location</label><value>[% fields.city %], [% fields.country %]</value></item>     
     </div>
-    <div class="list">
+    <div class="list bordered">
       <item><label>Source type</label><value>[% fields.host %]</value></item>     
       <item><label>Host tissue sampled</label><value>[% fields.source_details %]</value></item>
       [% IF fields.accession_number.length > 0 %]
@@ -49,7 +49,6 @@
     
   </div>
 
-  
   <div class="summary-box organism list">
     <item><label>Organism</label><value>[% species_format.$species || species %]</value></item>
   </div>
@@ -69,19 +68,17 @@ Sequence type (ST):
 </div>
 [% IF st %]
 	<div class="profile">
-	<table><tr><td rowspan="2" class="profile_heading">Profile:</td>
-	[% FOREACH locus IN mlst_loci %]<th>[% locus %]</th>[% END %]</tr>
-	<tr>
-	[% FOREACH locus IN mlst_loci %]
-	  <td>[% FOREACH allele IN alleles.$locus %][% IF !loop.first %], [% END %][% allele %][% END %]</td>
-	[% END %]
-	</tr>
-	</table>
+	[% mlst_profile %]
 	</div>
 [% END %]
 </div>
 </div>
 <div class="content amr">
+[% IF !Kleb %]
+<div class="list">
+<item><label>Antibiotic resistance determinants</label><value class="critical">Kleborate has not run.</value></item>
+</div>
+[% ELSE %]
 <div class="list">
 <item><label>Antibiotic resistance determinants</label>
 <value class="description">Genetically determined resistance mechanisms have been identified. 
@@ -92,13 +89,15 @@ antibiotic susceptibility profile.
 <a href="https://github.com/klebgenomics/Kleborate" target="_blank">
 <span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
 </div>
+
+<div class="scrollable">
 <table class="amr">
 <tr><th>Drug class</th><th>Acquired genotypes</th></tr>
 <tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
 <tr><td>  + β lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
 <tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
 <tr><td>  + β-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
-<tr><td>Carbapenems</td></td><td>[% carbapenems_output %]</td></tr>
+<tr><td>Carbapenems</td><td>[% carbapenems_output %]</td></tr>
 <tr><td>  + β-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
 <tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
 <tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
@@ -108,9 +107,60 @@ antibiotic susceptibility profile.
 <tr><td>Tigecycline</td><td>[% tigecycline_output %]</td></tr>
 <tr><td>Trimethoprim</td><td>[% trimethoprim_output %]</td></tr>
 <tr><td>  + Sulfonamides</td><td>[% sulfonamides_output %]</td></tr>
+</table></div>
+[% END %]
+</div>
 
-</table>
+<div class="content capsule">
+[% IF !Kleb %]
+<div class="list">
+<item><label>Capsule and O typing</label><value class="critical">Kapsule has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list"><item><label>Capsule and O typing</label><value class="description">
+Polysaccharide K and lipopolysaccharide O serotypes as predicted by KL and O genotype 
+<a href="https://github.com/klebgenomics/Kaptive" target="_blank"><span style="white-space: nowrap">
+https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
+<div class="info-grid">
+<div class="list"><item><label class="discrete"><em>K type</em></label>
+<value><em>[% Kleb.K_type %]</em></value></item></div>
+<div class="list"><item><label class="discrete"><em>O type</em></label>
+<value><em>[% Kleb.O_type %]</em></value></item></div>
+</div>
+[% END %]
+</div>
 
+<div class="content virulence">
+[% IF !Kleb %]
+<div class="list">
+<item><label>Virulence factors</label><value class="critical">Kleborate has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list">
+<item><label>Virulence factors</label><value class="description">Factors that may lead to increased 
+ability to cause invasive disease <a href="https://github.com/klebgenomics/Kleborate" target="_blank">
+https://github.com/klebgenomics/Kleborate</a>.</value></item>
+
+
+<div class="list">
+<item><label class="discrete">Virulence score</label><value>[% Kleb.virulence_score %]</value></item>
+</div>
+
+<div class="info-grid">
+<div class="list">
+<item><label>Acquired siderophores</label></item>
+<item><label class="discrete">Aerobactin ST</label><value>[% aerobactin_output %]</value></item>
+<item><label class="discrete">Salmochelin ST</label><value>[% salmochelin_output %]</value></item>
+<item><label class="discrete">Yersiniabactin ST</label><value>[% yersiniabactin_output %]</value></item>
+</div>
+<div class="list">
+<item><label>Other factors</label></item>
+<item><label class="discrete">Colibactin ST</label><value>[% colibactin_output %]</value></item>
+<item><label class="discrete">Hypermucoidy</label><value>[% hypermucoidy_output %]</value></item>
+</div></div>
+</div>
+[% END %]
+</div>
 </section>
 
 </body>

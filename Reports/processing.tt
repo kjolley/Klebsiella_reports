@@ -22,6 +22,23 @@
      END;
    END;
    st = parts.size ? parts.join(', ') : '';
+   
+   mlst_profile = '<table><tr><td rowspan="2" class="profile_heading">Profile:</td>';   
+   FOREACH locus IN mlst_loci;
+   	 mlst_profile = mlst_profile _ '<th>' _ locus _ '</th>';
+   END;
+   mlst_profile = mlst_profile _ '</tr><tr>';
+   FOREACH locus IN mlst_loci;
+     mlst_profile = mlst_profile _ '<td>';
+	 FOREACH allele IN alleles.$locus;
+	 	IF !loop.first;
+	 		mlst_profile = mlst_profile _ ', ';
+	 	END;
+	 		mlst_profile = mlst_profile _ allele;
+	 	END;
+	 	mlst_profile = mlst_profile _ '</td>';
+	 END;
+	 mlst_profile = mlst_profile _ '</tr></table>';
   %]
   
   
@@ -43,8 +60,9 @@
   cephalosporin_output = Kleb.Bla_ESBL_acquired ? 'bla' _ Kleb.Bla_ESBL_acquired : 'None found';
   cephalosporin_bla_inh_output = Kleb.Bla_ESBL_inhR_acquired ? 'bla' _ Kleb.Bla_ESBL_inhR_acquired : 'None found';
   
-  carbapenems_list = [Kleb.Bla_Carb_acquired,Kleb.Omp_mutations];
-  carbapenems_output = carbapenems_list.format_list({separator=>', ',prefix=>'bla', empty_term => 'None found'});
+  prefixed_carbapenem = Kleb.Bla_Carb_acquired ? 'bla' _ Kleb.Bla_Carb_acquired : undef;
+  carbapenems_list = [prefixed_carbapenem,Kleb.Omp_mutations];
+  carbapenems_output = carbapenems_list.format_list({separator=>', ', empty_term => 'None found'});
   aminogylcocides_output = Kleb.AGly_acquired ? Kleb.AGly_acquired : 'None found';
   
   fluoroquinolones_list = [Kleb.Flq_acquired,Kleb.Flq_mutations]
@@ -54,4 +72,11 @@
   tigecycline_output = Kleb.Tgc_acquired ? Kleb.Tgc_acquired : 'None found';
   trimethoprim_output = Kleb.Tmt_acquired ? Kleb.Tmt_acquired : 'None found';
   sulfonamides_output = Kleb.Sul_acquired ? Kleb.Sul_acquired : 'None found';
+  
+  aerobactin_output = Kleb.AbST ? Kleb.AbST : 'None';
+  salmochelin_output = Kleb.SmST ? Kleb.SmST : 'None';
+  yersiniabactin_output = Kleb.YbST ? Kleb.YbST : 'None';
+  colibactin_output = Kleb.CbST ? Kleb.CbST : 'None';
+  hypermucoidy_list = [Kleb.RmpADC,Kleb.rmpA2];
+  hypermucoidy_output = hypermucoidy_list.format_list({separator=>', ', empty_term => 'None'});
   %]
