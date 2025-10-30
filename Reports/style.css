@@ -24,7 +24,8 @@ h1.clinical,
 h2.clinical {
 	background: #fff2cc;
 }
-h2.public_health{
+
+h2.public_health {
 	background: #bdd7ee
 }
 
@@ -36,13 +37,14 @@ h2.public_health{
 	margin-bottom: 0.5rem;
 }
 
-.info-grid div {
+.info-grid>div {
 	flex: 1 1 auto;
 	padding: 0 0.5rem;
-	
+
 }
-.info-grid div.bordered {
-border: 1px solid #e7e6e6
+
+.info-grid>div.bordered {
+	border: 1px solid #e7e6e6
 }
 
 .section-title {
@@ -70,9 +72,27 @@ div.list {
 	padding: 0.2rem 0.5rem;
 }
 
+div.captioned_image {
+	display: flex;
+	flex: 1 1 40%;
+	align-items: flex-end;
+	gap: 5px;
+}
+
+div.captioned_image p.caption {
+	font-size: 0.8rem;
+	font-style: italic;
+	max-width: 150px;
+}
+
+div.captioned_image img {
+	display: block;
+}
+
 .summary-box.clinical {
 	background: #ffe9a6;
 }
+
 .summary-box.public_health {
 	background: #b6cfe6;
 }
@@ -134,6 +154,10 @@ value.description {
 	font-size: 0.9rem
 }
 
+p.note {
+	font-size: 0.8rem
+}
+
 table.amr {
 	width: 98%;
 	margin: auto;
@@ -149,9 +173,24 @@ table.amr td {
 	padding: 5px;
 }
 
+table.isolates {
+	font-size: 0.8rem;
+}
+
+table.isolates tr.this_isolate td {
+	background: #ddd
+}
+
+p.cluster_summary {
+	width: 98%;
+	margin: auto;
+	font-size: 0.8rem;
+}
+
 label.discrete {
 	font-weight: 300 !important;
 }
+
 value.critical {
 	color: #f00
 }

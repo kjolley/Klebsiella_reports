@@ -23,7 +23,7 @@
     <div class="list bordered">
       <item><label>Source type</label><value>[% fields.host %]</value></item>     
       <item><label>Host tissue sampled</label><value>[% fields.source_details %]</value></item>
-      [% IF fields.accession_number.length > 0 %]
+      [% IF fields.accession_number %]
       	<item><label>Accession number</label><value>[% fields.accession_number %]</value></item>
       [% END %]
       
@@ -205,6 +205,57 @@ Sequence type (ST):
 [% END %]
 </div>
 
+<div class="content plasmid">
+[% IF !PlasmidFinder %]
+<div class="list">
+<item><label>Plasmid Inc typing</label>
+<value class="critical">PlasmidFinder has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list">
+<item><label>Plasmid Inc typing</label><value class="description">
+ Plasmid replicons that are extracted from short sequence read data may be less reliable than from long read data 
+<a href="https://cge.food.dtu.dk/services/PlasmidFinder/" target="_blank">
+<span style="white-space: nowrap">https://cge.food.dtu.dk/services/PlasmidFinder/</span></a></value>
+</item></div>
+
+[% END %]
+</div>
+
+<div class="content outbreak">
+<div class="list">
+<item><label>Outbreak analysis</label><value class="description">Identifying isolates that are genetically 
+similar and maybe part of a transmission chain 
+<a href="https://bigsdb.pasteur.fr/klebsiella/cgmlst-lincodes/" target="_blank">
+<span style="white-space: nowrap">https://bigsdb.pasteur.fr/klebsiella/cgmlst-lincodes/</span></a>.
+</value></item>
+</div>
+[% IF lincodes.lincode %]
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
+<p class="note" style="margin-top:0">(based on cgMLST scheme with 629 genes)</p>
+</div>
+[% cluster_summary %]
+<div class="info-grid">
+<div class="scrollable">
+[% lincode_clusters %]
+</div>
+[% IF lincodes.clusters.5.similar %]
+<div class="captioned_image">
+<p class="caption">Further single nucleotide analysis may be required for isolates 
+that have identical LIN codes.</p>
+<img style="max-width:200px" src="data:image/png;base64,[% images.Pairwise_LIN_codes %]" />
+</div>
+[% END %]
+</div>
+
+[% ELSE %]
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>Not defined.</value></item>
+</div>
+[% END %]
+
+</div>
 
 </section>
 </body>

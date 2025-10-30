@@ -93,5 +93,42 @@
      END;
    END;
    scgst = parts.size ? parts.join(', ') : '';
+   %]
+   
+   [% 
+   cluster_summary = '<p class="cluster_summary">There ';
+   IF lincodes.clusters.5.simiar == 1;
+       cluster_summary = cluster_summary _ 'is ';
+   ELSE;
+   	   cluster_summary = cluster_summary _ 'are ';
+   END;
+   cluster_summary = cluster_summary _ lincodes.clusters.5.similar _ ' related isolate';
+   IF lincodes.clusters.5.simiar != 1;
+     cluster_summary = cluster_summary _ 's';
+   END;
+   cluster_summary = cluster_summary _ ' identified with the same LINcode prefix '
+   _ '<a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=query&designation_field1=lin_18&designation_operator1=starts%20with&designation_value1='
+   _ lincodes.clusters.5.prefix _ '&submit=1">' _ lincodes.clusters.5.prefix _ '</a> '
+   _ '(representing the 10 core genome MLST distance threshold) in the database.</p>';
+   
+   lincode_clusters = '';
+   IF lincodes.clusters.5.similar;
+	lincode_clusters = '<table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th>'
+	_ '<th>year</th><th>LINcode</th></tr>';
+	  FOREACH isolate IN lincodes.clusters.5.isolates;
+	    lincode_clusters = lincode_clusters _ '<tr';
+	    IF fields.id == isolate.id;
+	       lincode_clusters = lincode_clusters _ ' class="this_isolate"';
+	    END;
+	    lincode_clusters = lincode_clusters _ '><td>'
+	    _ '<a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id='
+	      _ isolate.id _ '" target="_blank">' _ isolate.id _ '</a></td><td>' _ isolate.isolate _ '</td>'
+	      _ '<td>' _ isolate.country _ '</td><td>' _ isolate.isolation_year _ '</td><td>'
+	      _ isolate.lincode _ '</td></tr>';
+      END;
+	lincode_clusters = lincode_clusters _ '</table>';
+   END;
   
   %]
+  
+  

@@ -7,6 +7,10 @@ reports = [
 				schemes = [1,18],
 				lincodes = {
 					 scheme = 18,
+					 clusters = {
+					 	 thresholds = [5], #One-based index
+						 fields = ['isolate','country','isolation_year']
+					 }
 				}	 
 		}
   },
