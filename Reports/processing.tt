@@ -132,7 +132,7 @@
   %]
   
   [% 
-  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance. ';
+  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.';
   IF Kleb.Bla_ESBL_acquired || Kleb.Bla_Carb_acquired;
 	MDR_list = [];
 	IF Kleb.Bla_ESBL_acquired;
@@ -141,12 +141,23 @@
 	IF Kleb.Bla_Carb_acquired;
 		MDR_list.push('CPE');
 	END;
-  	clinical_summary = clinical_summary _ 'Note multidrug resistance - ' 
+  	clinical_summary = clinical_summary _ ' Note multidrug resistance - ' 
   	_ MDR_list.format_list({separator=>' and '}) 
   	_ ' producing.';
 	
   END;
-		
+  hypervirulent = ['CG23','CG65','CG868'];
+  found = 0;
+  FOREACH cg IN lincodes.clonal_group;
+  	IF hypervirulent.grep(cg).size;
+ 		found = 1;
+  		BREAK;
+  	END;
+  END;
+  
+  IF found;
+    clinical_summary = clinical_summary _ ' This is a globally recognised hypervirulent clone.';
+  END;	
 	
   %]
   
