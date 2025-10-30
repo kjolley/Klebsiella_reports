@@ -43,7 +43,7 @@
   <h2 class="section-title clinical">Section 1: Clinical microbiology</h2>
   <div class="summary-box clinical list">  
     <item><label>Summary</label>
-    <value>SUMMARY goes here.</value></item>  
+    <value>[% clinical_summary %]</value></item>  
   </div>
 
   <div class="summary-box organism list">

@@ -131,4 +131,22 @@
   
   %]
   
+  [% 
+  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance. ';
+  IF Kleb.Bla_ESBL_acquired || Kleb.Bla_Carb_acquired;
+	MDR_list = [];
+	IF Kleb.Bla_ESBL_acquired;
+		MDR_list.push('ESBL');
+	END;
+	IF Kleb.Bla_Carb_acquired;
+		MDR_list.push('CPE');
+	END;
+  	clinical_summary = clinical_summary _ 'Note multidrug resistance - ' 
+  	_ MDR_list.format_list({separator=>' and '}) 
+  	_ ' producing.';
+	
+  END;
+		
+	
+  %]
   
