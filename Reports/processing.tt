@@ -1,4 +1,44 @@
-  [% species = fields.taxonomic_designation %]
+   
+   [%
+     genome_quality = ''; 
+     IF assembly;
+	   IF assembly_checks.last_run;
+	      IF assembly_checks.fail;
+	      	genome_quality = 'Poor';
+	      ELSIF assembly_checks.warn;
+	        genome_quality = 'Marginal';
+	      ELSE;
+	        genome_quality = 'Acceptable';
+	      END;
+	   ELSE;
+	   	  genome_quality = 'Checks not performed.';
+	   END;
+	 ELSE;
+	 genome_quality = 'No assembly';
+	 END;
+   %]
+   
+   [% 
+     FOREACH result IN analysis.Kleborate.results.fields;
+  		FOREACH field IN result.keys;
+  		  Kleb.$field = result.$field.replace('\*\?',' (homolog, fragment)')
+  			.replace('\?',' (fragment)').replace('\*',' (homolog)')
+  			.replace('\.v\d+','').replace('\^','');
+  		END;
+    END;
+  %]
+  
+  [% 
+     IF analysis.Kleborate.results.version;
+  		kleborate_vc = analysis.Kleborate.results.version _ ' analysis on '
+  		_ analysis.Kleborate.datestamp;
+     ELSE;
+     	kleborate_vc = 'Kleborate not run';
+     END;
+  
+  %]
+ 
+  [% species = Kleb.species || fields.taxonomic_designation %]
   [% species_format = {
     'K. pneumoniae' => '<em>Klebsiella pneumoniae</em>',
  	'K. quasipneumoniae subsp. quasipneumoniae' => 
@@ -8,7 +48,15 @@
 	   '<em>Klebsiella quasipneumoniae</em> subsp. <em>similipneumoniae</em>',
 	'K. variicola subsp. tropica' => '<em>Klebsiella variicola</em> subsp. <em>tropica</em>',
 	'K. quasivariicola' => '<em>Klebsiella quasivariicola</em>',
-	'K. africana' => '<em>Klebsiella africana</em>'
+	'K. africana' => '<em>Klebsiella africana</em>',
+	'Klebsiella pneumoniae' => '<em>Klebsiella pneumoniae</em>',
+	'Klebsiella quasipneumoniae' => '<em>Klebsiella quasipneumoniae</em>',
+	'Klebsiella variicola' => '<em>Klebsiella variicola</em>',
+	'Klebsiella quasivariicola' => '<em>Klebsiella quasivariicola</em>',
+	'Klebsiella africana' => '<em>Klebsiella africana</em>',
+	'Klebsiella ozanae' => '<em>Klebsiella pneumoniae</em> subsp. <em>ozaenae</em>',
+	'Klebsiella rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>'
+	
   } %]
   
   [% mlst_loci = ['gapA','infB','mdh','pgi','phoE','rpoB','tonB' ];
@@ -42,13 +90,7 @@
   %]
   
   
-  [% FOREACH result IN analysis.Kleborate.results.fields %]
-  	[% FOREACH field IN result.keys %]
-  		[% Kleb.$field = result.$field.replace('\*\?',' (homolog, fragment)')
-  			.replace('\?',' (fragment)').replace('\*',' (homolog)')
-  			.replace('\.v\d+','').replace('\^','') %]
-  	[% END %]
-  [% END %]
+
   
   
   [% 
@@ -72,6 +114,8 @@
   tigecycline_output = Kleb.Tgc_acquired ? Kleb.Tgc_acquired : 'None found';
   trimethoprim_output = Kleb.Tmt_acquired ? Kleb.Tmt_acquired : 'None found';
   sulfonamides_output = Kleb.Sul_acquired ? Kleb.Sul_acquired : 'None found';
+  macrolildes_output = Kleb.MLS_acquired ? Kleb.MLS_acquired : 'None found';
+  tetracycline_output = Kleb.Tet_acquired ? Kleb.Tet_acquired : 'None found';
   
   aerobactin_output = Kleb.AbST ? Kleb.AbST : 'None';
   salmochelin_output = Kleb.SmST ? Kleb.SmST : 'None';
@@ -97,13 +141,13 @@
    
    [% 
    cluster_summary = '<p class="cluster_summary">There ';
-   IF lincodes.clusters.5.simiar == 1;
+   IF lincodes.clusters.5.similar == 1;
        cluster_summary = cluster_summary _ 'is ';
    ELSE;
    	   cluster_summary = cluster_summary _ 'are ';
    END;
    cluster_summary = cluster_summary _ lincodes.clusters.5.similar _ ' related isolate';
-   IF lincodes.clusters.5.simiar != 1;
+   IF lincodes.clusters.5.similar != 1;
      cluster_summary = cluster_summary _ 's';
    END;
    cluster_summary = cluster_summary _ ' identified with the same LINcode prefix '
@@ -112,13 +156,18 @@
    _ '(representing the 10 core genome MLST distance threshold) in the database.</p>';
    
    lincode_clusters = '';
+   this_country = '';
+   country_count = {};
    IF lincodes.clusters.5.similar;
 	lincode_clusters = '<table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th>'
 	_ '<th>year</th><th>LINcode</th></tr>';
 	  FOREACH isolate IN lincodes.clusters.5.isolates;
+	    country = isolate.country
+	  	country_count.$country = (country_count.$country || 0) + 1;
 	    lincode_clusters = lincode_clusters _ '<tr';
 	    IF fields.id == isolate.id;
 	       lincode_clusters = lincode_clusters _ ' class="this_isolate"';
+	       this_country = fields.country;
 	    END;
 	    lincode_clusters = lincode_clusters _ '><td>'
 	    _ '<a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id='
@@ -131,8 +180,8 @@
   
   %]
   
-  [% 
-  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.';
+  [%  
+  mdr_summary = '';
   IF Kleb.Bla_ESBL_acquired || Kleb.Bla_Carb_acquired;
 	MDR_list = [];
 	IF Kleb.Bla_ESBL_acquired;
@@ -141,23 +190,89 @@
 	IF Kleb.Bla_Carb_acquired;
 		MDR_list.push('CPE');
 	END;
-  	clinical_summary = clinical_summary _ ' Note multidrug resistance - ' 
+  	mdr_summary = ' Note multidrug resistance - ' 
   	_ MDR_list.format_list({separator=>' and '}) 
   	_ ' producing.';
 	
   END;
   hypervirulent = ['CG23','CG65','CG868'];
-  found = 0;
+  hypervirulent_summary = '';
   FOREACH cg IN lincodes.clonal_group;
   	IF hypervirulent.grep(cg).size;
- 		found = 1;
+ 		hypervirulent_summary = ' This is a globally recognised hypervirulent clone.';
   		BREAK;
   	END;
   END;
   
-  IF found;
-    clinical_summary = clinical_summary _ ' This is a globally recognised hypervirulent clone.';
-  END;	
-	
+  cpe_clone_sts = [11,14,15,16,37,38,39,48,101,147,231,258,307,383,395,395,437,437,512,1519,2096,6260];
+  cpe_clone_summary = '';
+  FOREACH profile IN schemes.1;
+  	IF cpe_clone_sts.grep(profile.st).size;
+  		cpe_clone_summary = ' ST-' _ profile.st _ ' is recognised in hospital-acquired infection '
+  		_ 'with genotypic and phenotypic carbapenem resistance.';
+  		BREAK;
+  	END;
+  END;
+  
+  %]
+  [% 
+  
+  IF country_count.${this_country} > 1;
+  	same_geography = ' related to other isolates in the same geography.';
+  ELSE;
+    same_geography = ' not known to be related to other isolates in the same geography.';
+  END;
+  
+  %]
+  [%
+  
+  
+  virulence_factors = {
+  	'Kleb.YbST' => 'yersiniabactin', 
+  	'Kleb.CbST' => 'colibactin',
+  	'Kleb.AbST' => 'aerobactin',
+  	'Kleb.SmST' => 'salmochelin' 
+  };
+  vf_count = 0;
+  vf_list = [];
+  FOREACH vf IN virulence_factors.keys.sort;
+    IF $vf;
+    	vf_list.push(virulence_factors.$vf);
+  		vf_count = vf_count + 1;
+  	END;
+  END;
+  
+  number_lookup = {
+    '0' => 'No',
+  	'1' => 'One',
+  	'2' => 'Two',
+  	'3' => 'Three',
+  	'4' => 'Four'
+  };
+  
+  vf_summary = ' ' _ number_lookup.$vf_count _ ' virulence factor';
+  IF vf_count != 1;
+   vf_summary = vf_summary _ 's';
+  END;
+  vf_summary = vf_summary _ ' present';
+  IF vf_count;
+  	vf_summary = vf_summary _ ' (' _ vf_list.format_list({separator=>', ',, final_term=>' and '}) _ ')';
+  END;
+  vf_summary = vf_summary _ '. PLASMID TYPES TO DO';	
+  	
+  %]
+  
+
+  [%
+  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.'
+  _ mdr_summary _ hypervirulent_summary _ cpe_clone_summary ;
+  
+  public_health_summary = (species_format.$species || species) _ same_geography _ hypervirulent_summary
+    _ cpe_clone_summary;
+    
+  technical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.'
+  _ mdr_summary _ vf_summary;
+  
+
   %]
   

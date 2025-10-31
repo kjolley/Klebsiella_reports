@@ -11,7 +11,7 @@
 <body>
   [% PROCESS processing.tt %]
 
-<section class="report-header">
+<section class="report">
   <h1 class="clinical">CLINICAL GENOME REPORT</h1>
   <div class="info-grid">
     <div class="list bordered">     
@@ -28,15 +28,7 @@
       [% END %]
       
       <item><label>Genome report date</label><value>[% date %]</value></item>
-      <item><label>Genome quality</label><value>    
-	      [% IF assembly %]
-	      	[% IF assembly_checks.last_run %] 
-	      		[% IF assembly_checks.fail %]Poor
-	      		[% ELSIF assembly_checks.warn %]Marginal
-	      		[% ELSE %]Acceptable[% END %][% ELSE %]Checks not performed.
-	      	[% END %]
-	      [% ELSE %]No assembly[% END %]
-	    </value></item>
+      <item><label>Genome quality</label><value>[% genome_quality %]</item>
     </div>
   </div>
 
@@ -70,6 +62,7 @@ Sequence type (ST):
 [% END %]
 </div>
 </div>
+
 <div class="content amr">
 [% IF !Kleb %]
 <div class="list">
@@ -163,8 +156,9 @@ ability to cause invasive disease <a href="https://github.com/klebgenomics/Klebo
 Section 2: Public health and Infection prevention and control</h2>
 <div class="summary-box public_health list">  
   <item><label>Summary</label>
-  <value>SUMMARY goes here.</value></item>  
+  <value>[% public_health_summary %]</value></item>  
 </div>
+
 <div class="content typing">
 <div class="list">
 <item><label>Bacterial typing</label><value class="description">
@@ -244,7 +238,7 @@ similar and maybe part of a transmission chain
 <div class="captioned_image">
 <p class="caption">Further single nucleotide analysis may be required for isolates 
 that have identical LIN codes.</p>
-<img style="max-width:200px" src="data:image/png;base64,[% images.Pairwise_LIN_codes %]" />
+<img style="width:200px;max-width:200px" src="data:image/png;base64,[% images.Pairwise_LIN_codes %]" />
 </div>
 [% END %]
 </div>

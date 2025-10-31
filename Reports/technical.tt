@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+[% css %]
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  [% PROCESS processing.tt %]
+  
+  <section class="report">
+  <h1 class="technical">TECHNICAL GENOME REPORT</h1>
+  <div class="info-grid">
+    <div class="list bordered">     
+      	<item><label>Genome identifier</label><value>id-[% fields.id %]</value></item>
+      	<item><label>Isolate/laboratory identifier</label><value>[% fields.isolate %]</value></item>
+      	<item><label>Year of isolation</label><value>[% fields.isolation_year %]</value></item>
+      	<item><label>Location</label><value>[% fields.city %], [% fields.country %]</value></item>   
+      	<item><label>Source type</label><value>[% fields.host %]</value></item>     
+        <item><label>Host tissue sampled</label><value>[% fields.source_details %]</value></item>
+    </div>
+    <div class="list bordered">   
+    	<item><label>Accession number</label><value>[% fields.accession_number || 'Not defined' %]</value></item>
+    	<item><label>Genome report date</label><value>[% date %]</value></item>
+    	<item><label>Sequencing technology</label><value>[% assembly.method %]</value></item>
+    	<item><label>Genome quality</label><value>[% genome_quality %]
+    			[% IF genome_quality != 'No assembly' %] (detailed below)[% END %]</value></item>
+    	<item><label>Version control</label><value></value>[% kleborate_vc %]</item>
+    </div>
+  </div>
+    
+	<div class="summary-box technical list">  
+	    <item><label>Summary</label>
+	    <value>[% technical_summary %]</value></item>  
+	</div>
+  
+    <div class="summary-box organism list">
+		<item><label>Organism</label><value>[% species_format.$species || species %]. 
+		<em>Species match: [% Kleb.species_match %]</em></value></item>
+    </div>
+    
+    <div class="content amr">
+	[% IF !Kleb %]
+		<div class="list">
+		<item><label>Antibiotic resistance determinants</label><value class="critical">Kleborate has not run.</value></item>
+		</div>
+	[% ELSE %]
+		<div class="list">
+		<item><label>Antibiotic resistance determinants</label>
+		<value class="description">Resistance determinants identified through [% kleborate_vc %]. 
+		Only determinants with >90% coverage and >90% identity shown, also those with imprecise protein matches 
+		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *. “None found” means 
+		no resistance mechanisms have been identified in the antimicrobial resistance databases that exist at 
+		the time of reporting, correlate with phenotype. † Macrolides and tetracycline lack breakpoints as not 
+		recommended for therapy, resistance determinants included here.   It is best practice to review these 
+		with the phenotypic antibiotic susceptibility profile. 
+		<a href="https://github.com/klebgenomics/Kleborate" target="_blank">
+		<span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
+		</div>
+		
+		<div class="scrollable">
+		<table class="amr">
+		<tr><th>Drug class</th><th>Acquired genotypes</th></tr>
+		<tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
+		<tr><td>  + β lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
+		<tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
+		<tr><td>  + β-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
+		<tr><td>Carbapenems</td><td>[% carbapenems_output %]</td></tr>
+		<tr><td>  + β-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
+		<tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
+		<tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
+		<tr><td>Fosfomycin</td><td>[% fosfomycin_output %]</td></tr>
+		<tr><td>Phenicols</td><td>[% phenicols_output %]</td></tr>
+		<tr><td>Polymixins</td><td>CHECK VALUES NEEDED</td></tr>
+		<tr><td>Tigecycline</td><td>[% tigecycline_output %]</td></tr>
+		<tr><td>Trimethoprim</td><td>[% trimethoprim_output %]</td></tr>
+		<tr><td>  + Sulfonamides</td><td>[% sulfonamides_output %]</td></tr>
+		<tr><td>†Macrolides</td><td>[% macrolildes_output %]</td></tr>
+		<tr><td>†Tetracycline</td><td>[% tetracycline_output %]</td></tr>
+		</table></div>
+	[% END %]
+	</div>
+  
+<div class="content typing">
+<div class="list">
+<item><label>Bacterial typing</label><value class="description">
+subspecies characterisation and classification to assess isolate similarity</value>
+</item></div>
+<div class="info-grid">
+<div class="st">
+MLST (Multilocus sequence typing)<br />
+Sequence type (ST): 
+[% IF st %][% st %][% ELSE %]Not yet defined.[% END %]
+</div>
+[% IF st %]
+	<div class="profile">
+	[% mlst_profile %]
+	</div>
+[% END %]
+</div>
+[% IF lincodes.lincode %]
+<div class="info-grid">
+<div class="list"><item><label class="discrete">Phylogroup</label>
+<value>[% phylogroup_output %]</value></item></div>
+<div class="list"><item><label class="discrete">Sublineage</label>
+<value>[% sublineage_output %]</value></item></div>
+<div class="list"><item><label class="discrete">Clonal group</label>
+<value>[% clonal_group_output %]</value></item></div>
+<div class="list"><item><label class="discrete">cgST</label>
+<value>[% scgst %]</value></item></div>
+</div>
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
+</div>
+[% ELSE %]
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>Not defined.</value></item>
+</div>
+[% END %]
+</div>
+
+  </section>
+</body>
+</html>
