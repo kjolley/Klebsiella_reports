@@ -264,7 +264,8 @@
   [%
   
   intrinsic = '.';
-  IF species.match('Klebsiella');
+  formatted_species = species_format.$species || species;
+  IF formatted_species.match('Klebsiella') ;
   	intrinsic = ' with intrinsic ampicillin resistance.';
   END;
   
