@@ -24,6 +24,12 @@ h1.clinical,
 h2.clinical {
 	background: #fff2cc;
 }
+
+h3 {
+	font-size: 0.9rem;
+	margin-left: 1rem;
+}
+
 h1.technical {
 	background: #bfbfbf;
 }
@@ -165,8 +171,23 @@ value.description {
 	font-size: 0.9rem
 }
 
-p.note {
+p {
+	padding-left: 0.5rem;
+}
+
+p.note,
+span.note,
+ul.note {
 	font-size: 0.8rem
+}
+
+span.key {
+	font-family: monospace;
+	font-weight: 600;
+	background: #f3f4f5;
+	color: #ba4083;
+	border: 1px solid #d1d5da;
+	padding: 0 0.2rem;
 }
 
 table.amr {
@@ -198,12 +219,22 @@ p.cluster_summary {
 	font-size: 0.8rem;
 }
 
+p.heading {
+	font-size: 0.9rem;
+	font-weight: 600;
+	margin: 0;
+}
+
 label.discrete {
 	font-weight: 300 !important;
 }
 
 value.critical {
 	color: #f00
+}
+
+table.qc td.label {
+	padding-right: 4rem;
 }
 
 @media (max-width: 600px) {

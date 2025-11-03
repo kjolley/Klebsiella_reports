@@ -122,6 +122,157 @@ Sequence type (ST):
 [% END %]
 </div>
 
+<div class="content capsule">
+[% IF !Kleb %]
+<div class="list">
+<item><label>Capsule and O typing</label><value class="critical">Kapsule has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list"><item><label>Capsule and O typing</label><value class="description">
+Polysaccharide K and lipopolysaccharide O serotypes as predicted by KL and O genotype 
+<a href="https://github.com/klebgenomics/Kaptive" target="_blank"><span style="white-space: nowrap">
+https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
+<div class="info-grid">
+<div class="list">
+<item><label class="discrete"><em>K type</em></label><value><em>[% Kleb.K_type %]</em></value></item>
+<item><label class="discrete">Confidence</label><value>[% Kleb.K_locus_confidence || 'not reported.' %]</value></item>
+[% IF Kleb.K_locus_missing_genes || K_Missing_expected_genes %]
+	<item><label class="discrete">Missing genes</label>
+	<value>[% Kleb.K_locus_missing_genes || K_Missing_expected_genes %]</value></item>
+[% END %]
+[% IF Kleb.K_locus_problems %]
+	<item><label class="discrete">Problems</label><value>[% Kleb.K_locus_problems %]</value></item>
+[% END %]
+</div>
+<div class="list">
+<item><label class="discrete"><em>O type</em></label><value><em>[% Kleb.O_type %]</em></value></item>
+<item><label class="discrete">Confidence</label><value>[% Kleb.O_locus_confidence || 'not reported.' %]</value></item>
+[% IF Kleb.O_locus_missing_genes || O_Missing_expected_genes %]
+	<item><label class="discrete">Missing genes</label>
+	<value>[% Kleb.O_locus_missing_genes || O_Missing_expected_genes %]</value></item>
+[% END %]
+[% IF Kleb.O_locus_problems %]
+	<item><label class="discrete">Problems</label><value>[% Kleb.O_locus_problems %]</value></item>
+[% END %]
+</div>
+</div>
+[% IF Kleb.K_locus_problems || Kleb.O_locus_problems %]
+<h3>Problems key:</h3>
+<ul class="note">
+<li><span class="key">?</span> = the locus was in multiple pieces, possibly due to a poor match or discontiguous assembly. 
+The number of pieces is indicated by the integer directly following the ? symbol.</li>
+<li><span class="key">-</span> = genes expected in the locus were not found.</li>
+<li><span class="key">+</span> = extra genes were found in the locus.</li>
+<li><span class="key">*</span> = one or more expected genes was found but with translated identity below the minimum threshold.</li>
+<li><span class="key">!</span> = one or more genes was found but truncated.</li>
+</ul>
+[% ELSE %]
+<p>No missing or additional genes identified. Loci are intact.</p>
+[% END %]
+[% END %]
+</div>
+
+<div class="content virulence">
+[% IF !Kleb %]
+<div class="list">
+<item><label>Virulence factors</label><value class="critical">Kleborate has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list">
+<item><label>Virulence factors</label><value class="description">Factors that may lead to increased 
+ability to cause invasive disease <a href="https://github.com/klebgenomics/Kleborate" target="_blank">
+<span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
+<div class="list">
+<item><label class="discrete">Virulence score</label><value>[% Kleb.virulence_score %]</value></item>
+</div>
+
+<div class="info-grid">
+<div class="list">
+<item><label>Acquired siderophores</label></item>
+<item><label class="discrete">Aerobactin ST</label><value>[% aerobactin_output %]</value></item>
+<item><label class="discrete">Salmochelin ST</label><value>[% salmochelin_output %]</value></item>
+<item><label class="discrete">Yersiniabactin ST</label><value>[% yersiniabactin_output %]</value></item>
+</div>
+<div class="list">
+<item><label>Other factors</label></item>
+<item><label class="discrete">Colibactin ST</label><value>[% colibactin_output %]</value></item>
+<item><label class="discrete">Hypermucoidy</label><value>[% hypermucoidy_output %]</value></item>
+</div></div>
+</div>
+[% END %]
+</div>
+
+<div class="content plasmid">
+[% IF !PlasmidFinder %]
+<div class="list">
+<item><label>Plasmid Inc typing</label>
+<value class="critical">PlasmidFinder has not run.</value></item>
+</div>
+[% ELSE %]
+<div class="list">
+<item><label>Plasmid Inc typing</label><value class="description">
+ These are identified using PlasmidFinder 
+<a href="https://cge.food.dtu.dk/services/PlasmidFinder/" target="_blank">
+<span style="white-space: nowrap">https://cge.food.dtu.dk/services/PlasmidFinder/</span></a></value>
+</item></div>
+[% END %]
+</div>
+
+<div class="content outbreak">
+<div class="list">
+<item><label>Outbreak analysis</label><value class="description">Identifying isolates that are genetically 
+similar and maybe part of a transmission chain 
+<a href="https://bigsdb.pasteur.fr/klebsiella/cgmlst-lincodes/" target="_blank">
+<span style="white-space: nowrap">https://bigsdb.pasteur.fr/klebsiella/cgmlst-lincodes/</span></a>.
+</value></item>
+</div>
+[% IF lincodes.lincode %]
+<p class="heading">Allele based:</p>
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
+<p class="note" style="margin-top:0">(based on cgMLST scheme with 629 genes)</p>
+</div>
+
+[% cluster_summary %]
+<div class="info-grid">
+<div class="scrollable">
+[% lincode_clusters %]
+</div>
+[% IF lincodes.clusters.5.similar %]
+<div class="captioned_image">
+<p class="caption">Further single nucleotide analysis may be required for isolates 
+that have identical LIN codes.</p>
+<img style="width:200px;max-width:200px" src="data:image/png;base64,[% images.Pairwise_LIN_codes %]" />
+</div>
+[% END %]
+</div>
+
+[% ELSE %]
+<div class="list">
+<item><label class="discrete">LIN (Life Identification Number)</label><value>Not defined.</value></item>
+</div>
+[% END %]
+</div>
+
+<div class="content qc">
+<div class="list">
+<item><label>QC status</label><value class="description">based on KlebNet criteria.
+</value></item>
+
+<item><label>Genome quality</label><value>[% genome_quality %]</value></item>
+<table class="qc">
+<tr><td class="label">Species match:</td>
+<td>[% Kleb.species_match %] <span class="note">[determined with Kleborate]</span></td></tr>
+<tr><td>Genome size:</td>
+<td>[% assembly.total_length.commify %] bp <span class="note">[accepted criteria 4,969,898; 6,132,846]</span></td></tr>
+<tr><td>Contigs:</td>
+<td>[% assembly.contigs.commify %] <span class="note">[accepted criteria <500]</span></td></tr>
+<tr><td>%GC content:</td>
+<td>[% analysis.AssemblyStats.results.percent_GC || 'Not determined' %] <span class="note">[accepted criteria 56.35-57.98]</span></td></tr>
+</table>
+</div>
+</div>
+
   </section>
 </body>
 </html>

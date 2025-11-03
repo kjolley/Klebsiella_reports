@@ -130,8 +130,6 @@ https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
 <item><label>Virulence factors</label><value class="description">Factors that may lead to increased 
 ability to cause invasive disease <a href="https://github.com/klebgenomics/Kleborate" target="_blank">
 <span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
-
-
 <div class="list">
 <item><label class="discrete">Virulence score</label><value>[% Kleb.virulence_score %]</value></item>
 </div>
@@ -225,10 +223,12 @@ similar and maybe part of a transmission chain
 </value></item>
 </div>
 [% IF lincodes.lincode %]
+<p class="heading">Allele based:</p>
 <div class="list">
 <item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
 <p class="note" style="margin-top:0">(based on cgMLST scheme with 629 genes)</p>
 </div>
+
 [% cluster_summary %]
 <div class="info-grid">
 <div class="scrollable">
@@ -248,7 +248,6 @@ that have identical LIN codes.</p>
 <item><label class="discrete">LIN (Life Identification Number)</label><value>Not defined.</value></item>
 </div>
 [% END %]
-
 </div>
 
 </section>

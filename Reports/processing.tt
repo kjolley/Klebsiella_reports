@@ -21,9 +21,7 @@
    [% 
      FOREACH result IN analysis.Kleborate.results.fields;
   		FOREACH field IN result.keys;
-  		  Kleb.$field = result.$field.replace('\*\?',' (homolog, fragment)')
-  			.replace('\?',' (fragment)').replace('\*',' (homolog)')
-  			.replace('\.v\d+','').replace('\^','');
+  		  Kleb.$field = result.$field;
   		END;
     END;
   %]
@@ -256,7 +254,7 @@
   END;
   vf_summary = vf_summary _ ' present';
   IF vf_count;
-  	vf_summary = vf_summary _ ' (' _ vf_list.format_list({separator=>', ',, final_term=>' and '}) _ ')';
+  	vf_summary = vf_summary _ ' (' _ vf_list.format_list({separator=>', ',final_term=>' and '}) _ ')';
   END;
   vf_summary = vf_summary _ '. PLASMID TYPES TO DO';	
   	
@@ -264,7 +262,13 @@
   
 
   [%
-  clinical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.'
+  
+  intrinsic = '.';
+  IF species.match('Klebsiella');
+  	intrinsic = ' with intrinsic ampicillin resistance.';
+  END;
+  
+  clinical_summary = (species_format.$species || species) _ intrinsic
   _ mdr_summary _ hypervirulent_summary _ cpe_clone_summary ;
   
   public_health_summary = (species_format.$species || species) _ same_geography _ hypervirulent_summary
@@ -273,6 +277,6 @@
   technical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.'
   _ mdr_summary _ vf_summary;
   
-
   %]
+  
   
