@@ -91,15 +91,15 @@
   %]
   
   [%
-  FOREACH cg IN lincodes.clonal_group;
-	IF cg == 'CG67';
-		species = 'Klebsiella rhinoscleromatis';
-		BREAK;
-	ELSIF cg == 'CG91';
-		species = 'Klebsiella ozanae';
-		BREAK;
+	FOREACH cg IN lincodes.clonal_group;
+		IF cg == 'CG67';
+				species = 'Klebsiella rhinoscleromatis';
+			BREAK;
+		ELSIF cg == 'CG91';
+			species = 'Klebsiella ozanae';
+			BREAK;
+		END;
 	END;
-  END;
   
 	rhino_sts = [67,68,69,3772,3819];
 	IF rhino_sts.grep(st).size;
@@ -237,7 +237,7 @@
   %]
   [% 
   
-  IF country_count.${this_country} > 1;
+  IF country_count.${this_country} && country_count.${this_country} > 1;
   	same_geography = ' related to other isolates in the same geography.';
   ELSE;
     same_geography = ' not known to be related to other isolates in the same geography.';
@@ -297,7 +297,7 @@
   public_health_summary = (species_format.$species || species) _ same_geography _ hypervirulent_summary
     _ cpe_clone_summary;
     
-  technical_summary = (species_format.$species || species) _ ' with intrinsic ampicillin resistance.'
+  technical_summary = (species_format.$species || species) _ intrinsic
   _ mdr_summary _ vf_summary;
   
   %]
