@@ -47,6 +47,7 @@
 	'K. variicola subsp. tropica' => '<em>Klebsiella variicola</em> subsp. <em>tropica</em>',
 	'K. quasivariicola' => '<em>Klebsiella quasivariicola</em>',
 	'K. africana' => '<em>Klebsiella africana</em>',
+	'K. pneumoniae subsp. rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>',
 	'Klebsiella pneumoniae' => '<em>Klebsiella pneumoniae</em>',
 	'Klebsiella quasipneumoniae' => '<em>Klebsiella quasipneumoniae</em>',
 	'Klebsiella variicola' => '<em>Klebsiella variicola</em>',
@@ -55,7 +56,9 @@
 	'Klebsiella ozanae' => '<em>Klebsiella pneumoniae</em> subsp. <em>ozaenae</em>',
 	'Klebsiella rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>'
 	
-  } %]
+  };
+   
+  %]
   
   [% mlst_loci = ['gapA','infB','mdh','pgi','phoE','rpoB','tonB' ];
    
@@ -87,9 +90,28 @@
 	 mlst_profile = mlst_profile _ '</tr></table>';
   %]
   
+  [%
+  FOREACH cg IN lincodes.clonal_group;
+	IF cg == 'CG67';
+		species = 'Klebsiella rhinoscleromatis';
+		BREAK;
+	ELSIF cg == 'CG91';
+		species = 'Klebsiella ozanae';
+		BREAK;
+	END;
+  END;
   
-
+	rhino_sts = [67,68,69,3772,3819];
+	IF rhino_sts.grep(st).size;
+		species = 'Klebsiella rhinoscleromatis';
+	END;
+	ozaenae_sts = [90,91,92,93,95,96,97,381,777,3193,3766,3768,3771,3781,3782,3784,3802,3803];
+	IF ozaenae_sts.grep(st).size;
+		species = 'Klebsiella ozanae';
+	END;
   
+  
+  %]
   
   [% 
  
