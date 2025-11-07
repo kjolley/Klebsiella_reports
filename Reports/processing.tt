@@ -287,8 +287,17 @@
   
   intrinsic = '.';
   formatted_species = species_format.$species || species;
+  
   IF formatted_species.match('Klebsiella') ;
-  	intrinsic = ' with intrinsic ampicillin resistance.';
+  	
+  	kpsc = ['pneumoniae','quasipneumoniae','variicola','africana','quasivariicola','grimontii'];
+  	FOREACH t IN kpsc;
+   		IF formatted_species.match('\s' _ t);
+  			intrinsic = ' with intrinsic ampicillin resistance.';
+  			LAST;
+  		END;
+  	END;
+  	
   END;
   
   clinical_summary = (species_format.$species || species) _ intrinsic
@@ -302,4 +311,5 @@
   
   %]
   
+ 
   
