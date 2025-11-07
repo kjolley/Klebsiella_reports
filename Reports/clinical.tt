@@ -83,11 +83,11 @@ antibiotic susceptibility profile.
 <table class="amr">
 <tr><th>Drug class</th><th>Acquired genotypes</th></tr>
 <tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
-<tr><td>  + β lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
+<tr><td>  + &beta;-lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
 <tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
-<tr><td>  + β-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
+<tr><td>  + &beta;-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
 <tr><td>Carbapenems</td><td>[% carbapenems_output %]</td></tr>
-<tr><td>  + β-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
+<tr><td>  + &beta;-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
 <tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
 <tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
 <tr><td>Fosfomycin</td><td>[% fosfomycin_output %]</td></tr>

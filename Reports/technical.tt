@@ -51,9 +51,9 @@
 		<item><label>Antibiotic resistance determinants</label>
 		<value class="description">Resistance determinants identified through [% kleborate_vc %]. 
 		Only determinants with >90% coverage and >90% identity shown, also those with imprecise protein matches 
-		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *. “None found” means 
+		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *. "None found" means 
 		no resistance mechanisms have been identified in the antimicrobial resistance databases that exist at 
-		the time of reporting, correlate with phenotype. † Macrolides and tetracycline lack breakpoints as not 
+		the time of reporting, correlate with phenotype. &dagger; Macrolides and tetracycline lack breakpoints as not 
 		recommended for therapy, resistance determinants included here.   It is best practice to review these 
 		with the phenotypic antibiotic susceptibility profile. 
 		<a href="https://github.com/klebgenomics/Kleborate" target="_blank">
@@ -64,11 +64,11 @@
 		<table class="amr">
 		<tr><th>Drug class</th><th>Acquired genotypes</th></tr>
 		<tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
-		<tr><td>  + β lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
+		<tr><td>  + &beta;-lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
 		<tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
-		<tr><td>  + β-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
+		<tr><td>  + &beta;-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
 		<tr><td>Carbapenems</td><td>[% carbapenems_output %]</td></tr>
-		<tr><td>  + β-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
+		<tr><td>  + &beta;-lactamase inhibitor</td><td>CHECK VALUES NEEDED</td></tr>
 		<tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
 		<tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
 		<tr><td>Fosfomycin</td><td>[% fosfomycin_output %]</td></tr>
@@ -77,8 +77,8 @@
 		<tr><td>Tigecycline</td><td>[% tigecycline_output %]</td></tr>
 		<tr><td>Trimethoprim</td><td>[% trimethoprim_output %]</td></tr>
 		<tr><td>  + Sulfonamides</td><td>[% sulfonamides_output %]</td></tr>
-		<tr><td>†Macrolides</td><td>[% macrolildes_output %]</td></tr>
-		<tr><td>†Tetracycline</td><td>[% tetracycline_output %]</td></tr>
+		<tr><td>&dagger;Macrolides</td><td>[% macrolildes_output %]</td></tr>
+		<tr><td>&dagger;Tetracycline</td><td>[% tetracycline_output %]</td></tr>
 		</table></div>
 	[% END %]
 	</div>
