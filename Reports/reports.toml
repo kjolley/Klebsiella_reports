@@ -17,6 +17,7 @@ reports = [
   {
 		name		= 'Technical Genome Report',
 		template_file 	= 'technical.tt',
+		css = 'style.css',
 		requires        = {
 				schemes = [1,18],
 				lincodes = {
