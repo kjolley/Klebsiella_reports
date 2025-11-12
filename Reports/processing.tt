@@ -115,22 +115,23 @@
   
   [% 
  
-  penicillin_list = [Kleb.Bla_acquired,Kleb.Bla_chr,Kleb.Bla_inhR_acquired]; 
+  penicillin_list = [Kleb.Bla_acquired,Kleb.Bla_chr,Kleb.Bla_inhR_acquired,Kleb.Bla_ESBL_acquired,Kleb.Bla_ESBL_inhR_acquired,Kleb.Bla_Carb_acquired]; 
   penicillin_output = penicillin_list.format_list({separator=>', ',prefix=>'bla', empty_term => 'None found'});
   
   penicillin_bla_inh_output = Kleb.Bla_inhR_acquired ? 'bla' _ Kleb.Bla_inhR_acquired : 'None found';
-  cephalosporin_output = Kleb.Bla_ESBL_acquired ? 'bla' _ Kleb.Bla_ESBL_acquired : 'None found';
-  cephalosporin_bla_inh_output = Kleb.Bla_ESBL_inhR_acquired ? 'bla' _ Kleb.Bla_ESBL_inhR_acquired : 'None found';
-  
-  prefixed_carbapenem = Kleb.Bla_Carb_acquired ? 'bla' _ Kleb.Bla_Carb_acquired : undef;
-  carbapenems_list = [prefixed_carbapenem,Kleb.Omp_mutations];
-  carbapenems_output = carbapenems_list.format_list({separator=>', ', empty_term => 'None found'});
+  cephalosporin_list= [Kleb.Bla_ESBL_acquired,Kleb.Bla_ESBL_inhR_acquired,Kleb.Bla_Carb_acquired];
+  cephalosporin_output = cephalosporin_list.format_list({separator=>', ',prefix=>'bla', empty_term => 'None found'});
+  cephalosporin_bla_inh_output = Kleb.Bla_ESBL_inhR_acquired ? 'bla' _ Kleb.Bla_ESBL_inhR_acquired : 'None found'; 
+  carbapenems_output = Kleb.Bla_Carb_acquired ? 'bla' _ Kleb.Bla_Carb_acquired : undef;
+  porin_output = Kleb.Omp_mutations ? Kleb.Omp_mutations : 'None found';
   aminogylcocides_output = Kleb.AGly_acquired ? Kleb.AGly_acquired : 'None found';
   
-  fluoroquinolones_list = [Kleb.Flq_acquired,Kleb.Flq_mutations]
+  fluoroquinolones_list = [Kleb.Flq_acquired,Kleb.Flq_mutations];
   fluoroquinolones_output = fluoroquinolones_list.format_list({separator=>', ', empty_term => 'None found'});
   fosfomycin_output = Kleb.Fcyn_acquired ? Kleb.Fcyn_acquired : 'None found';
   phenicols_output = Kleb.Phe_acquired ? Kleb.Phe_acquired : 'None found';
+  polymixin_list = [Kleb.Col_acquired,Kleb.Col_mutations];
+  polymixin_output = polymixin_list.format_list({separator=>', ', empty_term => 'None found'});
   tigecycline_output = Kleb.Tgc_acquired ? Kleb.Tgc_acquired : 'None found';
   trimethoprim_output = Kleb.Tmt_acquired ? Kleb.Tmt_acquired : 'None found';
   sulfonamides_output = Kleb.Sul_acquired ? Kleb.Sul_acquired : 'None found';
