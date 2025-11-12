@@ -149,6 +149,21 @@
   sublineage_output = lincodes.sublineage.format_list({separator=>', ', empty_term => 'Not defined'})
   clonal_group_output = lincodes.clonal_group.format_list({separator=>', ', empty_term => 'Not defined'})
   
+  %]
+  
+[% 	
+  	IF analysis.PlasmidFinder;
+  		plasmids = [];
+  		FOREACH region IN analysis.PlasmidFinder.results.seq_regions.keys;
+  			plasmids.push(analysis.PlasmidFinder.results.seq_regions.$region.name);
+  		END;
+  		plasmid_output = plasmids.sort.format_list({separator=>', ', empty_term => 'None found',remove_dups => 1});
+  	END;
+  	
+  %]
+  
+   
+  [%
   parts = [];
    IF schemes.18;
      FOREACH v IN schemes.18;
@@ -268,7 +283,13 @@
   	'1' => 'One',
   	'2' => 'Two',
   	'3' => 'Three',
-  	'4' => 'Four'
+  	'4' => 'Four',
+  	'5' => 'Five',
+  	'6' => 'Six',
+  	'7' => 'Seven',
+  	'8' => 'Eight',
+  	'9' => 'Nine',
+  	'10' => 'Ten'
   };
   
   vf_summary = ' ' _ number_lookup.$vf_count _ ' virulence factor';
@@ -279,10 +300,21 @@
   IF vf_count;
   	vf_summary = vf_summary _ ' (' _ vf_list.format_list({separator=>', ',final_term=>' and '}) _ ')';
   END;
-  vf_summary = vf_summary _ '. PLASMID TYPES TO DO';	
+  plasmid_count = plasmids.unique.size;
+  plasmid_summary = '.';
+  IF analysis.PlasmidFinder;
+	  plasmid_summary = ' and ' _ (number_lookup.plasmid_count || plasmid_count || 'No') _ ' plasmid type';
+	  IF plasmid_count != 1;
+	  	plasmid_summary = plasmid_summary _ 's';
+	  END;
+	  IF plasmid_count > 0;
+	  	plasmid_summary = plasmid_summary _ ' (' _ plasmid_output _ ')';
+	  END;
+	  plasmid_summary = plasmid_summary _ '.';
+  END;
+  
   	
   %]
-  
 
   [%
   
@@ -308,7 +340,7 @@
     _ cpe_clone_summary;
     
   technical_summary = (species_format.$species || species) _ intrinsic
-  _ mdr_summary _ vf_summary;
+  _ mdr_summary _ vf_summary _ plasmid_summary;
   
   %]
   

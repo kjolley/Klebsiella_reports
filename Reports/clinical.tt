@@ -197,7 +197,7 @@ Sequence type (ST):
 </div>
 
 <div class="content plasmid">
-[% IF !PlasmidFinder %]
+[% IF !analysis.PlasmidFinder %]
 <div class="list">
 <item><label>Plasmid Inc typing</label>
 <value class="critical">PlasmidFinder has not run.</value></item>
@@ -208,7 +208,9 @@ Sequence type (ST):
  Plasmid replicons that are extracted from short sequence read data may be less reliable than from long read data 
 <a href="https://cge.food.dtu.dk/services/PlasmidFinder/" target="_blank">
 <span style="white-space: nowrap">https://cge.food.dtu.dk/services/PlasmidFinder/</span></a></value>
-</item></div>
+</item>
+<item><label class="discrete">Plasmid type</label><value>[% plasmid_output %]</value></item>
+</div>
 
 [% END %]
 </div>
