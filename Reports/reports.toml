@@ -3,6 +3,18 @@ reports = [
 		name		= 'Clinical Genome Report',
 		template_file 	= 'clinical.tt',
 		css = 'style.css',
+		show_if 		= {
+				mode	= 'all',
+				predicates = {
+					min_seqbin_size = 4969898,
+					max_seqbin_size = 6132846,
+					min_assembly_qc = 'warn', 		#pass, warn, fail
+					analysis = [
+						'Kleborate',
+						'PlasmidFinder'
+					]
+				}		
+		},
 		requires        = {
 				schemes = [1,18],
 				lincodes = {
@@ -18,6 +30,13 @@ reports = [
 		name		= 'Technical Genome Report',
 		template_file 	= 'technical.tt',
 		css = 'style.css',
+		show_if 		= {
+				mode	= 'all',
+				predicates = {
+					min_seqbin_size = 1000000,
+					min_assembly_qc = 'fail' 	#Same as not setting.
+				}		
+		},
 		requires        = {
 				schemes = [1,18],
 				lincodes = {
