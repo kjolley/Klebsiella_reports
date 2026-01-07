@@ -241,9 +241,6 @@ table.qc td.label {
 	.info-grid {
 		display: block
 	}
-
-	;
-
 	.info-grid div:not(:first-child) {
 		margin-top: 12px;
 	}

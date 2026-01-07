@@ -5,6 +5,7 @@
 <style>
 [% css %]
 </style>
+<title>Clinical Genome Report: id-[% fields.id %]</title>
 </head>
 
 <body>
@@ -236,11 +237,9 @@ similar and maybe part of a transmission chain
 [% lincode_clusters %]
 </div>
 [% IF lincodes.clusters.5.similar %]
-<div class="captioned_image">
-<p class="caption">Further single nucleotide analysis may be required for isolates 
-that have identical LIN codes.</p>
-<img style="width:200px;max-width:200px" src="data:image/png;base64,[% images.Pairwise_LIN_codes %]" />
-</div>
+<p class="note">Most isolates with identical LIN codes (all 10 thresholds) have <100 and often <25 single nucleotide 
+differences, but further single nucleotide analysis may be required for these isolates in cluster/outbreak 
+investigations.</p> 
 [% END %]
 </div>
 
