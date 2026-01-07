@@ -102,11 +102,11 @@
 	END;
   
 	rhino_sts = [67,68,69,3772,3819];
-	IF rhino_sts.grep(st).size;
+	IF rhino_sts.grep('^' _ st _ '$').size;
 		species = 'Klebsiella rhinoscleromatis';
 	END;
 	ozaenae_sts = [90,91,92,93,95,96,97,381,777,3193,3766,3768,3771,3781,3782,3784,3802,3803];
-	IF ozaenae_sts.grep(st).size;
+	IF ozaenae_sts.grep('^' _ st _ '$').size;
 		species = 'Klebsiella ozanae';
 	END;
   
@@ -234,7 +234,7 @@
   hypervirulent = ['CG23','CG65','CG868'];
   hypervirulent_summary = '';
   FOREACH cg IN lincodes.clonal_group;
-  	IF hypervirulent.grep(cg).size;
+  	IF hypervirulent.grep('^' _ cg _ '$').size;
  		hypervirulent_summary = ' This is a globally recognised hypervirulent clone.';
   		BREAK;
   	END;
@@ -243,7 +243,7 @@
   cpe_clone_sts = [11,14,15,16,37,38,39,48,101,147,231,258,307,383,395,395,437,437,512,1519,2096,6260];
   cpe_clone_summary = '';
   FOREACH profile IN schemes.1;
-  	IF cpe_clone_sts.grep(profile.st).size;
+  	IF cpe_clone_sts.grep('^' _ profile.st _ '$').size;
   		cpe_clone_summary = ' ST-' _ profile.st _ ' is recognised in hospital-acquired infection '
   		_ 'with genotypic and phenotypic carbapenem resistance.';
   		BREAK;
