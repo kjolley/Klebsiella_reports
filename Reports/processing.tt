@@ -53,7 +53,7 @@
 	'Klebsiella variicola' => '<em>Klebsiella variicola</em>',
 	'Klebsiella quasivariicola' => '<em>Klebsiella quasivariicola</em>',
 	'Klebsiella africana' => '<em>Klebsiella africana</em>',
-	'Klebsiella ozanae' => '<em>Klebsiella pneumoniae</em> subsp. <em>ozaenae</em>',
+	'Klebsiella ozaenae' => '<em>Klebsiella pneumoniae</em> subsp. <em>ozaenae</em>',
 	'Klebsiella rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>'
 	
   };
@@ -89,14 +89,14 @@
 	 END;
 	 mlst_profile = mlst_profile _ '</tr></table>';
   %]
-  
+    
   [%
 	FOREACH cg IN lincodes.clonal_group;
 		IF cg == 'CG67';
 				species = 'Klebsiella rhinoscleromatis';
 			BREAK;
 		ELSIF cg == 'CG91';
-			species = 'Klebsiella ozanae';
+			species = 'Klebsiella ozaenae';
 			BREAK;
 		END;
 	END;
@@ -107,7 +107,16 @@
 	END;
 	ozaenae_sts = [90,91,92,93,95,96,97,381,777,3193,3766,3768,3771,3781,3782,3784,3802,3803];
 	IF ozaenae_sts.grep('^' _ st _ '$').size;
-		species = 'Klebsiella ozanae';
+		species = 'Klebsiella ozaenae';
+	END;
+	
+	rhino_sls = ['SL10032'];
+	IF rhino_sls.grep('^' _ lincodes.sublineage.0 _ '$').size;
+		species = 'Klebsiella rhinoscleromatis';
+	END;
+	ozaenae_sls = ['SL10031','SL91'];
+	IF ozaenae_sls.grep('^' _ lincodes.sublineage.0 _ '$').size;
+		species = 'Klebsiella ozaenae';
 	END;
   
   
@@ -231,21 +240,20 @@
   	_ ' producing.';
 	
   END;
-  hypervirulent = ['CG23','CG65','CG868'];
+  hypervirulent = ['SL23','SL86','SL65','SL66','SL380'];
   hypervirulent_summary = '';
-  FOREACH cg IN lincodes.clonal_group;
-  	IF hypervirulent.grep('^' _ cg _ '$').size;
- 		hypervirulent_summary = ' This is a globally recognised hypervirulent clone.';
+  FOREACH sl IN lincodes.sublineage;
+  	IF hypervirulent.grep('^' _ sl _ '$').size;
+ 		hypervirulent_summary = ' ' _ sl _ ' is a globally recognised hypervirulent clone.';
   		BREAK;
   	END;
   END;
   
-  cpe_clone_sts = [11,14,15,16,37,38,39,48,101,147,231,258,307,383,395,395,437,437,512,1519,2096,6260];
-  cpe_clone_summary = '';
+  high_risk_clone_sts = [11,258,512,14,15,147,37,101,17,307];
+  hr_clone_summary = '';
   FOREACH profile IN schemes.1;
-  	IF cpe_clone_sts.grep('^' _ profile.st _ '$').size;
-  		cpe_clone_summary = ' ST-' _ profile.st _ ' is recognised in hospital-acquired infection '
-  		_ 'with genotypic and phenotypic carbapenem resistance.';
+  	IF high_risk_clone_sts.grep('^' _ profile.st _ '$').size;
+  		hr_clone_summary = ' ST-' _ profile.st _ ' has been identified as a high risk multidrug resistant <i>K. pneumoniae</i> clone.';
   		BREAK;
   	END;
   END;
@@ -315,10 +323,11 @@
   
   	
   %]
-
+  
   [%
   
   intrinsic = '.';
+  species_summary = '';
   formatted_species = species_format.$species || species;
   
   IF formatted_species.match('Klebsiella') ;
@@ -330,14 +339,23 @@
   			LAST;
   		END;
   	END;
+  	IF species == 'Klebsiella ozaenae';
+  		species_summary = ' (can cause atrophic rhinitis)';
+  	ELSIF species == 'Klebsiella rhinoscleromatis';
+  		species_summary = ' (causes rhinoscleroma)';
+  	END;
+  	
   	
   END;
   
-  clinical_summary = (species_format.$species || species) _ intrinsic
-  _ mdr_summary _ hypervirulent_summary _ cpe_clone_summary ;
+  
+ 
+  
+  clinical_summary = (species_format.$species || species) _ species_summary _ intrinsic 
+  _ mdr_summary _ hypervirulent_summary _ hr_clone_summary ;
   
   public_health_summary = (species_format.$species || species) _ same_geography _ hypervirulent_summary
-    _ cpe_clone_summary;
+    _ hr_clone_summary;
     
   technical_summary = (species_format.$species || species) _ intrinsic
   _ mdr_summary _ vf_summary _ plasmid_summary;
