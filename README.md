@@ -104,9 +104,14 @@ The template files are written for
 [Template Toolkit](http://template-toolkit.org/), which combines HTML with
 processing logic.
 
-## Ensure Kleborate has run
+## Ensure Kleborate and PlasmidFinder have run
 Results from Kleborate are needed for the reports. These are stored for an 
-isolate record when the Kleborate plugin is run manually with the --all option.
+isolate record when the Kleborate plugin is run.
 To ensure that Kleborate results are available for all records, you should run
 it using the `update_kleborate.pl` script found in the BIGSdb 
 scripts/maintenance directory.
+
+Results are also needed from PlasmidFinder. As with Kleborate, these are stored
+for an isolate record when the PlasmidFinder plugin is run. Run the
+`update_plasmidfinder.pl` script found in the BIGSdb scripts/maintenance 
+directory to run this for all records in the database.
