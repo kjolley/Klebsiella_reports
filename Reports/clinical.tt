@@ -113,9 +113,13 @@ Polysaccharide K and lipopolysaccharide O serotypes as predicted by KL and O gen
 https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
 <div class="info-grid">
 <div class="list"><item><label class="discrete"><em>K type</em></label>
-<value><em>[% Kleb.K_type %]</em></value></item></div>
+<value><em>
+[% (Kleb.K_locus_confidence AND Kleb.K_locus_confidence == 'Typeable') ? Kleb.K_type : 'Unknown' %]
+</em></value></item></div>
 <div class="list"><item><label class="discrete"><em>O type</em></label>
-<value><em>[% Kleb.O_type %]</em></value></item></div>
+<value><em>
+[% (Kleb.O_locus_confidence AND Kleb.O_locus_confidence == 'Typeable') ? Kleb.O_type : 'Unknown' %]
+</em></value></item></div>
 </div>
 [% END %]
 </div>
