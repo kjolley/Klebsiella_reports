@@ -235,9 +235,9 @@
 	IF Kleb.Bla_Carb_acquired;
 		MDR_list.push('CPE');
 	END;
-  	mdr_summary = ' Note multidrug resistance - ' 
+  	mdr_summary = ' Note presence of ' 
   	_ MDR_list.format_list({separator=>' and '}) 
-  	_ ' producing.';
+  	_ ' genetic determinants, advise correlating with phenotypic antibiotic susceptibility testing.';
 	
   END;
   hypervirulent = ['SL23','SL86','SL65','SL66','SL380'];

@@ -74,8 +74,7 @@ Sequence type (ST):
 <value class="description">Genetically determined resistance mechanisms have been identified. 
 Genetic variants (homologs) are highlighted *. "None found" means no resistance mechanisms 
 have been identified in the antimicrobial resistance databases that exist at the time of 
-reporting, correlate with phenotype. It is best practice to review these with the phenotypic 
-antibiotic susceptibility profile. 
+reporting. It is best practice to review these with the phenotypic antibiotic susceptibility profile.
 <a href="https://github.com/klebgenomics/Kleborate" target="_blank">
 <span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
 </div>
