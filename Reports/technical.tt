@@ -256,7 +256,9 @@ investigations.</p>
 
 <div class="content qc">
 <div class="list">
-<item><label>QC status</label><value class="description">based on KlebNet criteria.
+<item><label>QC status</label><value class="description">based on KlebNet criteria 
+(<a href="https://bigsdb.pasteur.fr/klebsiella/genome-quality-check/" target="_blank"
+>https://bigsdb.pasteur.fr/klebsiella/genome-quality-check/</a>).
 </value></item>
 
 <item><label>Genome quality</label><value>[% genome_quality %]</value></item>
