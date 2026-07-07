@@ -54,7 +54,8 @@
 	'Klebsiella quasivariicola' => '<em>Klebsiella quasivariicola</em>',
 	'Klebsiella africana' => '<em>Klebsiella africana</em>',
 	'Klebsiella ozaenae' => '<em>Klebsiella pneumoniae</em> subsp. <em>ozaenae</em>',
-	'Klebsiella rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>'
+	'Klebsiella rhinoscleromatis' => '<em>Klebsiella pneumoniae</em> subsp. <em>rhinoscleromatis</em>',
+	'Klebsiella variicola subsp. variicola' => '<em>Klebsiella variicola</em> subsp. <em>variicola</em>'
 	
   };
    
@@ -131,7 +132,7 @@
   cephalosporin_list= [Kleb.Bla_ESBL_acquired,Kleb.Bla_ESBL_inhR_acquired,Kleb.Bla_Carb_acquired];
   cephalosporin_output = cephalosporin_list.format_list({separator=>', ',prefix=>'bla', empty_term => 'None found'});
   cephalosporin_bla_inh_output = Kleb.Bla_ESBL_inhR_acquired ? 'bla' _ Kleb.Bla_ESBL_inhR_acquired : 'None found'; 
-  carbapenems_output = Kleb.Bla_Carb_acquired ? 'bla' _ Kleb.Bla_Carb_acquired : undef;
+  carbapenems_output = Kleb.Bla_Carb_acquired ? 'bla' _ Kleb.Bla_Carb_acquired : 'None found';
   porin_output = Kleb.Omp_mutations ? Kleb.Omp_mutations : 'None found';
   aminogylcocides_output = Kleb.AGly_acquired ? Kleb.AGly_acquired : 'None found';
   

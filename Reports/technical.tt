@@ -264,7 +264,7 @@ investigations.</p>
 <tr><td class="label">Species match:</td>
 <td>[% Kleb.species_match %] <span class="note">[determined with Kleborate]</span></td></tr>
 <tr><td>Genome size:</td>
-<td>[% assembly.total_length.commify %] bp <span class="note">[accepted criteria 4,969,898; 6,132,846]</span></td></tr>
+<td>[% assembly.total_length.commify %] bp <span class="note">[accepted criteria 4,969,898-6,132,846]</span></td></tr>
 <tr><td>Contigs:</td>
 <td>[% assembly.contigs.commify %] <span class="note">[accepted criteria <500]</span></td></tr>
 <tr><td>%GC content:</td>
