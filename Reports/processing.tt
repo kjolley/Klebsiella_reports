@@ -148,10 +148,10 @@
   macrolildes_output = Kleb.MLS_acquired ? Kleb.MLS_acquired : '<b>None found</b>';
   tetracycline_output = Kleb.Tet_acquired ? Kleb.Tet_acquired : '<b>None found</b>';
   
-  aerobactin_output = Kleb.AbST ? Kleb.AbST : 'None';
-  salmochelin_output = Kleb.SmST ? Kleb.SmST : 'None';
-  yersiniabactin_output = Kleb.YbST ? Kleb.YbST : 'None';
-  colibactin_output = Kleb.CbST ? Kleb.CbST : 'None';
+  aerobactin_output = Kleb.Aerobactin ? Kleb.Aerobactin : 'None';
+  salmochelin_output = Kleb.Salmochelin ? Kleb.Salmochelin : 'None';
+  yersiniabactin_output = Kleb.Yersiniabactin ? Kleb.Yersiniabactin : 'None';
+  colibactin_output = Kleb.Colibactin ? Kleb.Colibactin : 'None';
   hypermucoidy_list = [Kleb.RmpADC,Kleb.rmpA2];
   hypermucoidy_output = hypermucoidy_list.format_list({separator=>', ', empty_term => 'None'});
  

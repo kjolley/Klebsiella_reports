@@ -190,13 +190,13 @@ ability to cause invasive disease <a href="https://github.com/klebgenomics/Klebo
 <div class="info-grid">
 <div class="list">
 <item><label>Acquired siderophores</label></item>
-<item><label class="discrete">Aerobactin ST</label><value>[% aerobactin_output %]</value></item>
-<item><label class="discrete">Salmochelin ST</label><value>[% salmochelin_output %]</value></item>
-<item><label class="discrete">Yersiniabactin ST</label><value>[% yersiniabactin_output %]</value></item>
+<item><label class="discrete">Aerobactin</label><value>[% aerobactin_output %]</value></item>
+<item><label class="discrete">Salmochelin</label><value>[% salmochelin_output %]</value></item>
+<item><label class="discrete">Yersiniabactin</label><value>[% yersiniabactin_output %]</value></item>
 </div>
 <div class="list">
 <item><label>Other factors</label></item>
-<item><label class="discrete">Colibactin ST</label><value>[% colibactin_output %]</value></item>
+<item><label class="discrete">Colibactin</label><value>[% colibactin_output %]</value></item>
 <item><label class="discrete">Hypermucoidy</label><value>[% hypermucoidy_output %]</value></item>
 </div></div>
 </div>
