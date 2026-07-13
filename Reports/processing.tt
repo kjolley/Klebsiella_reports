@@ -21,7 +21,7 @@
    [% 
      FOREACH result IN analysis.Kleborate.results.fields;
   		FOREACH field IN result.keys;
-  		  Kleb.$field = result.$field;
+  		  Kleb.$field = result.$field.replace('\^','');
   		END;
     END;
   %]
