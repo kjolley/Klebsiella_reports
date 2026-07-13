@@ -52,7 +52,8 @@
 		<item><label>Antibiotic resistance determinants</label>
 		<value class="description">Resistance determinants identified through [% kleborate_vc %]. 
 		Only determinants with >90% coverage and >90% identity shown, also those with imprecise protein matches 
-		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *. "None found" means 
+		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *, also those with 
+		imprecise protein matches or reduced coverage will be flagged with ?. "None found" means 
 		no resistance mechanisms have been identified in the antimicrobial resistance databases that exist at 
 		the time of reporting. &dagger; Macrolides and tetracycline lack breakpoints as not 
 		recommended for therapy, resistance determinants included here.   It is best practice to review these 

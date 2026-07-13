@@ -82,20 +82,20 @@ reporting. It is best practice to review these with the phenotypic antibiotic su
 <div class="scrollable">
 <table class="amr">
 <tr><th>Drug class</th><th>Acquired genotypes</th></tr>
-<tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output %]</td></tr>
-<tr><td>  + &beta;-lactamase inhibitor</td><td>[% penicillin_bla_inh_output %]</td></tr>
-<tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output %]</td></tr>
-<tr><td>  + &beta;-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output %]</td></tr>
-<tr><td>Carbapenems</td><td>[% carbapenems_output %]</td></tr>
-<tr><td>Porin mutations (multiple drug classes)</td><td>[% porin_output %]</td></tr>
-<tr><td>Aminoglycosides</td><td>[% aminogylcocides_output %]</td></tr>
-<tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output %]</td></tr>
-<tr><td>Fosfomycin</td><td>[% fosfomycin_output %]</td></tr>
-<tr><td>Phenicols</td><td>[% phenicols_output %]</td></tr>
-<tr><td>Polymixins</td><td>[% polymixin_output %]</td></tr>
-<tr><td>Tigecycline</td><td>[% tigecycline_output %]</td></tr>
-<tr><td>Trimethoprim</td><td>[% trimethoprim_output %]</td></tr>
-<tr><td>  + Sulfonamides</td><td>[% sulfonamides_output %]</td></tr>
+<tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output.remove('\?') %]</td></tr>
+<tr><td>  + &beta;-lactamase inhibitor</td><td>[% penicillin_bla_inh_output.remove('\?') %]</td></tr>
+<tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output.remove('\?') %]</td></tr>
+<tr><td>  + &beta;-lactamase inhibitor</td><td>[% cephalosporin_bla_inh_output.remove('\?') %]</td></tr>
+<tr><td>Carbapenems</td><td>[% carbapenems_output.remove('\?') %]</td></tr>
+<tr><td>Porin mutations (multiple drug classes)</td><td>[% porin_output.remove('\?') %]</td></tr>
+<tr><td>Aminoglycosides</td><td>[% aminogylcocides_output.remove('\?') %]</td></tr>
+<tr><td>Fluoroquinolones</td><td>[% fluoroquinolones_output.remove('\?') %]</td></tr>
+<tr><td>Fosfomycin</td><td>[% fosfomycin_output.remove('\?') %]</td></tr>
+<tr><td>Phenicols</td><td>[% phenicols_output.remove('\?') %]</td></tr>
+<tr><td>Polymixins</td><td>[% polymixin_output.remove('\?') %]</td></tr>
+<tr><td>Tigecycline</td><td>[% tigecycline_output.remove('\?') %]</td></tr>
+<tr><td>Trimethoprim</td><td>[% trimethoprim_output.remove('\?') %]</td></tr>
+<tr><td>  + Sulfonamides</td><td>[% sulfonamides_output.remove('\?') %]</td></tr>
 </table></div>
 [% END %]
 </div>
