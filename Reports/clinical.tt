@@ -181,6 +181,7 @@ Sequence type (ST):
 </div>
 <div class="list">
 <item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
+<p class="note" style="margin-top:0">(based on cgMLST scheme with 629 genes)</p>
 </div>
 [% ELSE %]
 <div class="list">
@@ -218,10 +219,6 @@ similar and maybe part of a transmission chain
 </div>
 [% IF lincodes.lincode %]
 <p class="heading">Allele based:</p>
-<div class="list">
-<item><label class="discrete">LIN (Life Identification Number)</label><value>[% lincodes.lincode %]</value></item>
-<p class="note" style="margin-top:0">(based on cgMLST scheme with 629 genes)</p>
-</div>
 
 [% cluster_summary %]
 <div class="info-grid">
