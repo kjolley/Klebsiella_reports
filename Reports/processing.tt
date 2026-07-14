@@ -238,7 +238,7 @@
 	END;
   	mdr_summary = ' Note presence of ' 
   	_ MDR_list.format_list({separator=>' and '}) 
-  	_ ' genetic determinants, advise correlating with phenotypic antibiotic susceptibility testing.';
+  	_ ' genetic determinants, advise reviewing with phenotypic antibiotic susceptibility testing.';
 	
   END;
   hypervirulent = ['SL23','SL86','SL65','SL66','SL380'];
