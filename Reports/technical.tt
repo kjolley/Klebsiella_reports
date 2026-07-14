@@ -33,8 +33,7 @@
   </div>
     
 	<div class="summary-box technical list">  
-	    <item><label>Summary</label>
-	    <value>[% technical_summary %]</value></item>  
+	    <item><label>Summary</label><value>[% technical_summary %]</value></item>  
 	</div>
   
     <div class="summary-box organism list">
@@ -49,8 +48,8 @@
 		</div>
 	[% ELSE %]
 		<div class="list">
-		<item><label>Antibiotic resistance determinants</label>
-		<value class="description">Resistance determinants identified through [% kleborate_vc %]. 
+		<item><label>Antibiotic resistance determinants</label><value class="description">Resistance determinants 
+		identified through [% kleborate_vc %]. 
 		Only determinants with >90% coverage and >90% identity shown, also those with imprecise protein matches 
 		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *, also those with 
 		imprecise protein matches or reduced coverage will be flagged with ?. "None found" means 
@@ -87,8 +86,8 @@
   
 <div class="content typing">
 <div class="list">
-<item><label>Bacterial typing</label><value class="description">
-subspecies characterisation and classification to assess isolate similarity</value>
+<item><label>Bacterial typing</label><value class="description">subspecies characterisation
+and classification to assess isolate similarity</value>
 </item></div>
 <div class="info-grid">
 <div class="st">
@@ -129,8 +128,8 @@ Sequence type (ST):
 <item><label>Capsule and O typing</label><value class="critical">Kapsule has not run.</value></item>
 </div>
 [% ELSE %]
-<div class="list"><item><label>Capsule and O typing</label><value class="description">
-Polysaccharide K and lipopolysaccharide O serotypes as predicted by KL and O genotype 
+<div class="list"><item><label>Capsule and O typing</label><value class="description">Polysaccharide K and 
+lipopolysaccharide O serotypes as predicted by KL and O genotype 
 <a href="https://github.com/klebgenomics/Kaptive" target="_blank"><span style="white-space: nowrap">
 https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
 <div class="info-grid">

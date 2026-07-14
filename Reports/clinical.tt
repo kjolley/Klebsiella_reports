@@ -34,8 +34,7 @@
 
   <h2 class="section-title clinical">Section 1: Clinical microbiology</h2>
   <div class="summary-box clinical list">  
-    <item><label>Summary</label>
-    <value>[% clinical_summary %]</value></item>  
+    <item><label>Summary</label><value>[% clinical_summary %]</value></item>  
   </div>
 
   <div class="summary-box organism list">
@@ -44,8 +43,8 @@
 
 <div class="content typing">
 <div class="list">
-<item><label>Bacterial typing</label><value class="description">
-subspecies characterisation and classification to assess isolate similarity 
+<item><label>Bacterial typing</label><value class="description">subspecies characterisation
+and classification to assess isolate similarity 
 <a href="https://pubmlst.org/multilocus-sequence-typing" target="_blank">
 <span style="white-space: nowrap">https://pubmlst.org/multilocus-sequence-typing</span></a></value>
 </item></div>
@@ -70,8 +69,8 @@ Sequence type (ST):
 </div>
 [% ELSE %]
 <div class="list">
-<item><label>Antibiotic resistance determinants</label>
-<value class="description">Genetically determined resistance mechanisms have been identified. 
+<item><label>Antibiotic resistance determinants</label><value class="description">Genetically determined 
+resistance mechanisms have been identified. 
 Genetic variants (homologs) are highlighted *. "None found" means no resistance mechanisms 
 have been identified in the antimicrobial resistance databases that exist at the time of 
 reporting. It is best practice to review these with the phenotypic antibiotic susceptibility profile.
@@ -106,8 +105,8 @@ reporting. It is best practice to review these with the phenotypic antibiotic su
 <item><label>Capsule and O typing</label><value class="critical">Kapsule has not run.</value></item>
 </div>
 [% ELSE %]
-<div class="list"><item><label>Capsule and O typing</label><value class="description">
-Polysaccharide K and lipopolysaccharide O serotypes as predicted by KL and O genotype 
+<div class="list"><item><label>Capsule and O typing</label><value class="description">Polysaccharide K 
+and lipopolysaccharide O serotypes as predicted by KL and O genotype 
 <a href="https://github.com/klebgenomics/Kaptive" target="_blank"><span style="white-space: nowrap">
 https://github.com/klebgenomics/Kaptive</span></a>.</value></item></div>
 <div class="info-grid">
