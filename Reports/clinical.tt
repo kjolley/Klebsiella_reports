@@ -54,11 +54,6 @@ MLST (Multilocus sequence typing)<br />
 Sequence type (ST): 
 [% IF st %][% st %][% ELSE %]Not yet defined.[% END %]
 </div>
-[% IF st %]
-	<div class="profile">
-	[% mlst_profile %]
-	</div>
-[% END %]
 </div>
 </div>
 
@@ -172,11 +167,6 @@ MLST (Multilocus sequence typing)<br />
 Sequence type (ST): 
 [% IF st %][% st %][% ELSE %]Not yet defined.[% END %]
 </div>
-[% IF st %]
-	<div class="profile">
-	[% mlst_profile %]
-	</div>
-[% END %]
 </div>
 [% IF lincodes.lincode %]
 <div class="info-grid">
