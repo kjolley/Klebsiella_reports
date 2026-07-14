@@ -18,7 +18,7 @@
       	<item><label>Genome identifier</label><value>id-[% fields.id %]</value></item>
       	<item><label>Isolate/laboratory identifier</label><value>[% fields.isolate %]</value></item>
       	<item><label>Year of isolation</label><value>[% fields.isolation_year %]</value></item>
-      	<item><label>Location</label><value>[% fields.city %], [% fields.country %]</value></item>   
+      	<item><label>Location</label><value>[% location %]</value></item>   
       	<item><label>Source type</label><value>[% fields.host %]</value></item>     
         <item><label>Host tissue sampled</label><value>[% fields.source_details %]</value></item>
     </div>

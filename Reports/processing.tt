@@ -1,3 +1,7 @@
+   [% 
+     location_list = [fields.city,fields.country];
+     location = location_list.format_list({separator=>', '}); 
+   %]
    
    [%
      genome_quality = ''; 
