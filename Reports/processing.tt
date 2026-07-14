@@ -203,18 +203,13 @@
    _ 'to approximately 20 SNPs on average.</p>';
    
    lincode_clusters = '';
-   this_country = '';
-   country_count = {};
    IF lincodes.clusters.8.similar;
 	lincode_clusters = '<table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th>'
 	_ '<th>year</th><th>LINcode</th></tr>';
 	  FOREACH isolate IN lincodes.clusters.8.isolates;
-	    country = isolate.country
-	  	country_count.$country = (country_count.$country || 0) + 1;
 	    lincode_clusters = lincode_clusters _ '<tr';
 	    IF fields.id == isolate.id;
 	       lincode_clusters = lincode_clusters _ ' class="this_isolate"';
-	       this_country = fields.country;
 	    END;
 	    lincode_clusters = lincode_clusters _ '><td>'
 	    _ '<a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=info&id='
@@ -263,10 +258,10 @@
   %]
   [% 
   
-  IF country_count.${this_country} && country_count.${this_country} > 1;
-  	same_geography = ' related to other isolates in the same geography.';
+  IF lincodes.clusters.8.similar;;
+  	related = ' related to other isolates.';
   ELSE;
-    same_geography = ' not known to be related to other isolates in the same geography.';
+    related = ' not known to be related to other isolates.';
   END;
   
   %]
@@ -356,7 +351,7 @@
   clinical_summary = (species_format.$species || species) _ species_summary _ intrinsic 
   _ mdr_summary _ hypervirulent_summary _ hr_clone_summary ;
   
-  public_health_summary = (species_format.$species || species) _ same_geography _ hypervirulent_summary
+  public_health_summary = (species_format.$species || species) _ related _ hypervirulent_summary
     _ hr_clone_summary;
     
   technical_summary = (species_format.$species || species) _ intrinsic
