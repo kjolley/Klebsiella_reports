@@ -187,27 +187,28 @@
    
    [% 
    cluster_summary = '<p class="cluster_summary">There ';
-   IF lincodes.clusters.5.similar == 1;
+   IF lincodes.clusters.8.similar == 1;
        cluster_summary = cluster_summary _ 'is ';
    ELSE;
    	   cluster_summary = cluster_summary _ 'are ';
    END;
-   cluster_summary = cluster_summary _ lincodes.clusters.5.similar _ ' related isolate';
-   IF lincodes.clusters.5.similar != 1;
+   cluster_summary = cluster_summary _ lincodes.clusters.8.similar _ ' related isolate';
+   IF lincodes.clusters.8.similar != 1;
      cluster_summary = cluster_summary _ 's';
    END;
    cluster_summary = cluster_summary _ ' identified with the same LINcode prefix '
    _ '<a href="https://bigsdb.pasteur.fr/cgi-bin/bigsdb/bigsdb.pl?db=pubmlst_klebsiella_isolates&page=query&designation_field1=lin_18&designation_operator1=starts%20with&designation_value1='
-   _ lincodes.clusters.5.prefix _ '&submit=1">' _ lincodes.clusters.5.prefix _ '</a> '
-   _ '(representing the 10 core genome MLST distance threshold) in the database.</p>';
+   _ lincodes.clusters.8.prefix _ '&submit=1">' _ lincodes.clusters.8.prefix _ '</a> '
+   _ '(representing the 2 core genome MLST distance threshold) in the database. This threshold corresponds '
+   _ 'to approximately 20 SNPs on average.</p>';
    
    lincode_clusters = '';
    this_country = '';
    country_count = {};
-   IF lincodes.clusters.5.similar;
+   IF lincodes.clusters.8.similar;
 	lincode_clusters = '<table class="isolates"><tr><th>id</th><th>isolate</th><th>country</th>'
 	_ '<th>year</th><th>LINcode</th></tr>';
-	  FOREACH isolate IN lincodes.clusters.5.isolates;
+	  FOREACH isolate IN lincodes.clusters.8.isolates;
 	    country = isolate.country
 	  	country_count.$country = (country_count.$country || 0) + 1;
 	    lincode_clusters = lincode_clusters _ '<tr';

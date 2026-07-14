@@ -241,7 +241,7 @@ similar and maybe part of a transmission chain
 <div class="scrollable">
 [% lincode_clusters %]
 </div>
-[% IF lincodes.clusters.5.similar %]
+[% IF lincodes.clusters.8.similar %]
 <p class="note">Most isolates with identical LIN codes (all 10 thresholds) have <100 and often <25 single nucleotide 
 differences, but further single nucleotide analysis may be required for these isolates in cluster/outbreak 
 investigations.</p> 

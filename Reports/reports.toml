@@ -20,7 +20,7 @@ reports = [
 				lincodes = {
 					 scheme = 18,
 					 clusters = {
-					 	 thresholds = [5], #One-based index
+					 	 thresholds = [8], #One-based index
 						 fields = ['isolate','country','isolation_year']
 					 }
 				}	 
@@ -42,7 +42,7 @@ reports = [
 				lincodes = {
 					 scheme = 18,
 					 clusters = {
-					 	 thresholds = [5], #One-based index
+					 	 thresholds = [8], #One-based index
 						 fields = ['isolate','country','isolation_year']
 					 }
 				}
