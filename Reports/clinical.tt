@@ -75,7 +75,7 @@ reporting. It is best practice to review these with the phenotypic antibiotic su
 
 <div class="scrollable">
 <table class="amr">
-<tr><th>Drug class</th><th>Acquired genotypes</th></tr>
+<tr><th>Drug class</th><th>Related genotypes</th></tr>
 <tr><td>Penicillins (expected resistance due to blaSHV)</td><td>[% penicillin_output.remove('\?') %]</td></tr>
 <tr><td>  + &beta;-lactamase inhibitor</td><td>[% penicillin_bla_inh_output.remove('\?') %]</td></tr>
 <tr><td>Cephalosporins (3<sup>rd</sup> gen)</td><td>[% cephalosporin_output.remove('\?') %]</td></tr>
