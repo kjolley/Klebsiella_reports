@@ -159,7 +159,6 @@
   hypermucoidy_list = [Kleb.RmpADC,Kleb.rmpA2];
   hypermucoidy_output = hypermucoidy_list.format_list({separator=>', ', empty_term => 'None'});
  
-  phylogroup_output = lincodes.phylogroup.format_list({separator=>', ', empty_term => 'Not defined'})
   sublineage_output = lincodes.sublineage.format_list({separator=>', ', empty_term => 'Not defined'})
   clonal_group_output = lincodes.clonal_group.format_list({separator=>', ', empty_term => 'Not defined'})
   

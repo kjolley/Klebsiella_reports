@@ -103,8 +103,6 @@ Sequence type (ST):
 </div>
 [% IF lincodes.lincode %]
 <div class="info-grid">
-<div class="list"><item><label class="discrete">Phylogroup</label>
-<value>[% phylogroup_output %]</value></item></div>
 <div class="list"><item><label class="discrete">Sublineage</label>
 <value>[% sublineage_output %]</value></item></div>
 <div class="list"><item><label class="discrete">Clonal group</label>
