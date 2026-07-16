@@ -54,9 +54,9 @@
 		or reduced coverage will be flagged. Genetic variants (homologs) are highlighted *, also those with 
 		imprecise protein matches or reduced coverage will be flagged with ?. "None found" means 
 		no resistance mechanisms have been identified in the antimicrobial resistance databases that exist at 
-		the time of reporting. &dagger; Macrolides and tetracycline lack breakpoints as not 
-		recommended for therapy, resistance determinants included here.   It is best practice to review these 
-		with the phenotypic antibiotic susceptibility profile. 
+		the time of reporting. &dagger; Macrolides and tetracyclines are not recommended for therapy and lack 
+		breakpoints to define resistance, so are excluded from the clinical report. Resistance determinants 
+		for these classes are included here for non-clinical purposes.
 		<a href="https://github.com/klebgenomics/Kleborate" target="_blank">
 		<span style="white-space:nowrap">https://github.com/klebgenomics/Kleborate</span></a>.</value></item>
 		</div>
